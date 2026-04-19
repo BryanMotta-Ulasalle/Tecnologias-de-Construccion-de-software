@@ -1,9 +1,13 @@
-import React from 'react'
+import LanguageSelector from "./components/LanguajeSelector"
+import Form from "./components/Form";
 
-const App = () => {
+function App() {
   return (
-    <div>App</div>
-  )
+    <div className="min-h-screen bg-gray-100 p-6">
+      <LanguageSelector />
+      <Form />
+    </div>
+  );
 }
 
-export default App
+export default App;
