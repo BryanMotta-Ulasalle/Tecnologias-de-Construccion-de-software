@@ -1,0 +1,1 @@
+export const headerTable = ['Name', 'Price', 'Stock']
