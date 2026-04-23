@@ -1,0 +1,11 @@
+usuarios/users_env
+usuarios/__pycache__/
+usuarios/.env
+
+productos/prducts_env
+productos/__pycache__/
+productos/.env
+
+pedidos/pedidos_env
+pedidos/__pycache__/
+pedidos/.env
