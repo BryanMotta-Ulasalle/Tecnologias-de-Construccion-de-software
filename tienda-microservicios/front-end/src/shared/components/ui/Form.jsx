@@ -1,8 +1,8 @@
-import React, { Children } from 'react'
+import React from 'react'
 
-const Form = ({ action, children }) => {
+const Form = ({ action, onSubmit, children }) => {
   return (
-    <form onSubmit={action} className='flex flex-col'>
+    <form onSubmit={onSubmit ?? action} className='flex flex-col gap-2'>
         {children}
       </form>
   )

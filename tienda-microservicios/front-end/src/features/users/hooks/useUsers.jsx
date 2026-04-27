@@ -15,10 +15,15 @@ const useUsers = () => {
     }, []) 
 
     const createNewUser = useCallback(async (userData) => {
-        const createdUser = await createUser(userData)
-        setUsers((prevUsers) => [...prevUsers, createdUser])
-        return createdUser
+        const response = await createUser(userData)
+        setUsers(prevUsers => [...prevUsers, userData])
+        return response
     }, [])
+
+    const usersList = users.map(user => ({
+        id: user.id,
+        nombre: user.nombre,
+    }))
 
   useEffect(() => {
     
@@ -27,7 +32,8 @@ const useUsers = () => {
 
   return {
     users,
-    createNewUser
+    createNewUser,
+    usersList
   }
 }
 

@@ -4,6 +4,7 @@ from models import db, Usuario
 # Agrupa rutas relacionadas — aquí todas las de /usuarios
 usuarios_bp = Blueprint('usuarios', __name__)
 # GET /usuarios — devuelve todos los usuarios
+@usuarios_bp.route('', methods=['GET'])
 @usuarios_bp.route('/', methods=['GET'])
 def listar_usuarios():
     # SELECT * FROM usuarios ORDER BY id
@@ -13,6 +14,7 @@ def listar_usuarios():
     return jsonify([u.to_dict() for u in usuarios])
 
 # POST /usuarios — crea un usuario nuevo
+@usuarios_bp.route('', methods=['POST'])
 @usuarios_bp.route('/', methods=['POST'])
 def crear_usuario():
     data = request.get_json()  # Lee el body JSON del request

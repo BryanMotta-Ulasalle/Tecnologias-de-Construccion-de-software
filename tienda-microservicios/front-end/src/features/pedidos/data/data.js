@@ -1,0 +1,1 @@
+export const header = ['Id de pedido', 'id del usuario', 'total', 'Estado', "Productos"];

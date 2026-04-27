@@ -4,18 +4,26 @@ import { headerTable } from '../data/data'
 import useProduct from '../hooks/useProduct'
 import Title from '../../../shared/components/ui/Title'
 import ButtonCardCreate from '../../../shared/components/ui/ButtonCardCreate'
+import FormCreateProduct from '../components/FormCreateProduct'
+import useClose from '../../../shared/components/hooks/useClose'
+import { Plus } from 'lucide-react';
 
 const Product = () => {
 
-  const { products } = useProduct()
+  const { products, createNewProduct } = useProduct()
+  const { isOpen, handleOpen, handleClose } = useClose()
 
   return (
     <div>
-      <div>
+      <div className='py-10 flex items-center justify-between px-10'>
         <Title title="Productos" description="Lista de productos disponibles"/>
-        <ButtonCardCreate/>
+        <ButtonCardCreate handleOpen={handleOpen} isOpen={isOpen} name='Crear Producto' Icon={Plus}>
+          <FormCreateProduct onClose={handleClose} handleClose={handleClose} onCreateProduct={createNewProduct}/>
+        </ButtonCardCreate>
       </div>
-      <ProductTable header={headerTable} data={products}/>
+      <div className='p-10'>
+        <ProductTable header={headerTable} data={products}/>
+      </div>
     </div>
   )
 }

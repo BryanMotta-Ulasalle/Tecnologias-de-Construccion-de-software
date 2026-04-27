@@ -1,14 +1,15 @@
 
 
-const CardCreate = ({children }) => {
+const CardCreate = ({children, variant = "normal"}) => {
 
-  
-
-
+  const variants = {
+    normal:"w-100 h-110 ",
+    big: "w-150 h-170 "
+  }
 
 
   return (
-    <div className='w-60 h-50 border z-9 bg-white p-2 rounded-2xl '  >
+    <div className={`border z-9 bg-chart1 border-tableBorder rounded-2xl ${variants[variant]}`}  >
       {children}  
     </div>
   )

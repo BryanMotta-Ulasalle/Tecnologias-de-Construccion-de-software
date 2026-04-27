@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { getProducts } from '../services/productServices'
+import { getProducts,createProduct } from '../services/productServices'
 
 const useProduct = () => {
 
@@ -14,13 +14,20 @@ const useProduct = () => {
         }
     }, [])  
 
+    const createNewProduct = useCallback(async (productData) => {
+        const response = await createProduct(productData)
+        setProducts(prevProducts => [...prevProducts, productData])
+        return response
+    }, [])
+
     useEffect(() => {
         fetchProducts()
     }, [fetchProducts])
 
 
   return {
-    products
+    products,
+    createNewProduct
   }
 }
 

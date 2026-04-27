@@ -10,7 +10,12 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app) 
+    CORS(
+        app,
+        resources={r"/usuarios/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}},
+        methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allow_headers=["Content-Type", "Authorization"],
+    )
 
     # Configuración de la base de datos
     # Flask-SQLAlchemy usa esta variable para conectarse
@@ -18,6 +23,7 @@ def create_app():
 
     # Desactiva el tracking de modificaciones (consume memoria innecesaria)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.url_map.strict_slashes = False
 
     # Inicializa el ORM con la app
     # Esto "conecta" db con la app de Flask

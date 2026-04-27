@@ -3,11 +3,13 @@ from models import db, Producto
 
 productos_bp = Blueprint('productos', __name__)
 
+@productos_bp.route('', methods=['GET'])
 @productos_bp.route('/', methods=['GET'])
 def listar_productos():
     productos = Producto.query.order_by(Producto.id).all()
     return jsonify([p.to_dict() for p in productos])
 
+@productos_bp.route('', methods=['POST'])
 @productos_bp.route('/', methods=['POST'])
 def crear_producto():
     data = request.get_json()

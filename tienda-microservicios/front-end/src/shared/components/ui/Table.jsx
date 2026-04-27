@@ -16,7 +16,7 @@ const Table = ({ header }) => {
     ]
 
   return (
-    <table className='min-w-full border border-gray-200 rounded-lg overflow-hidden'>
+    <table className='min-w-full overflow-hidden'>
         <thead className=''>
             <tr>
                 {

@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+@theme inline {
+    --color-sidebar: #0F172A;
+    --color-navActive: #13213E;
+    --color-navHover: #162033;
+    --color-navHoverText: #BFC6D0;
+    --color-background: #0B0E15;
+    --color-chart1: #1E293B;
+    --color-text1: #94A3B8;
+    --color-text2: #E2E8F0;
+    --color-button:#2563EB;
+    --color-tableBorder: #4B596D;
+    --color-iconBackground: #94B4FF;
+    --color-icon: #002978;
+    --color-buttonHover: #1D4ED8;
+
+}

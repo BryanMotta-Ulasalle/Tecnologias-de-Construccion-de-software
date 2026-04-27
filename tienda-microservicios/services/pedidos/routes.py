@@ -8,11 +8,13 @@ pedidos_bp = Blueprint('pedidos', __name__)
 USUARIOS_URL  = os.getenv('USUARIOS_SERVICE_URL')
 PRODUCTOS_URL = os.getenv('PRODUCTOS_SERVICE_URL')
 
+@pedidos_bp.route('', methods=['GET'])
 @pedidos_bp.route('/', methods=['GET'])
 def listar_pedidos():
     pedidos = Pedido.query.order_by(Pedido.id.desc()).all()
     return jsonify([p.to_dict() for p in pedidos])
 
+@pedidos_bp.route('', methods=['POST'])
 @pedidos_bp.route('/', methods=['POST'])
 def crear_pedido():
     data = request.get_json()
