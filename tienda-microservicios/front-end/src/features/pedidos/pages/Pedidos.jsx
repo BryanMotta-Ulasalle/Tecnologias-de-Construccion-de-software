@@ -31,7 +31,9 @@ const Pedidos = () => {
                     <FormCreatePedido onCreatePedido={createNewPedido} handleClose={handleClose} selectOptionsUsers={usersList} selectOptionsProducts={products}/>
                 </ButtonCardCreate>
             </div>
-            <TablePedidos header={header} data={pedidos} handleDetail={handleDetail} open={handleOpenDetail}/>
+            <div className="p-10">
+                <TablePedidos header={header} data={pedidos} handleDetail={handleDetail} open={handleOpenDetail}/>
+             </div>
             <ButtonDetalleProductos isOpen={isOpenDetail} >
                 <CardDetalleProductos data={selectedPedido} handleClose={() => { handleCloseDetail()}} />
             </ButtonDetalleProductos>
