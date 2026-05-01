@@ -1,4 +1,4 @@
-export const headerTable = ['Name', 'Price', 'Stock']
+export const headerTable = ['Name', 'Price', 'Stock']   
 
 export const formProductName = {
     label: "Nombre:",

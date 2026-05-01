@@ -1,0 +1,23 @@
+{
+  "title":"Panel Administrativo",
+  "subtitle": "Suite Empresarial",
+  "nav": {
+    "home": "Inicio",
+    "users": "Usuarios",
+    "products": "Productos",
+    "orders": "Pedidos"
+  },
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar"
+  },
+  "status": {
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "pending": "Pendiente"
+  }
+}

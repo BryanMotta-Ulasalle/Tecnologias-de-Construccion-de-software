@@ -1,0 +1,24 @@
+{
+
+    "title":"Management Panel",
+  "subtitle": "Business Suite",
+  "nav": {
+    "home": "Home",
+    "users": "Users",
+    "products": "Products",
+    "orders": "Orders"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending"
+  }
+}

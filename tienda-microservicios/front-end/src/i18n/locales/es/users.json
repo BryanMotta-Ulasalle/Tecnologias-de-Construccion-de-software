@@ -1,0 +1,43 @@
+{
+
+  "title": "Administración de Usuarios",
+  "subtitle": "Gestiona los usuarios de tu aplicación",
+  "addUser": "Agregar Usuario",
+
+  "table": {
+    "title":  "Lista de Usuarios",
+    "name":   "Nombre",
+    "email":  "Correo",
+    "role":   "Rol",
+    "status": "Estado"
+  },
+
+  "form": {
+    "addUser": "Agregar nuevo Usuario",
+    "name": {
+      "label":       "Nombre:",
+      "placeholder": "Ingresa el nombre"
+    },
+    "email": {
+      "label":       "Email:",
+      "placeholder": "Ingresa el email"
+    },
+    "role": {
+      "label": "Rol:",
+      "opcionDefault": "Selecciona un rol"
+    },
+    "status": {
+      "label": "Estado:",
+      "opcionDefault": "Selecciona un estado"
+    }
+
+  },
+  "roles": {
+    "admin": "Admin",
+    "user":  "Usuario"
+  },
+  "status": {
+    "active":   "Activo",
+    "inactive": "Inactivo"
+  }
+}

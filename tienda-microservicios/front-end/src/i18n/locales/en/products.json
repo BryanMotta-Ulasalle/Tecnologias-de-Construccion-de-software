@@ -1,0 +1,7 @@
+{
+    "table": {
+        "name": "Name",
+        "price": "Price",
+        "stock": "Stock"
+    }
+}

@@ -1,0 +1,43 @@
+{
+  "title": "User Management",
+  "subtitle": "Manage your application's users",
+  "addUser": "Add User",
+
+  "table": {
+    "title":  "User List",
+    "name":   "Name",
+    "email":  "Email",
+    "role":   "Role",
+    "status": "Status"
+  },
+
+  "form": {
+    "addUser": "Add New User",
+    "name": {
+      "label":       "Name:",
+      "placeholder": "Enter name"
+    },
+    "email": {
+      "label":       "Email:",
+      "placeholder": "Enter email"
+    },
+    "role": {
+      "label": "Role:",
+      "opcionDefault": "Select a role"
+    },
+    "status": {
+      "label": "Status:",
+      "opcionDefault": "Select a status"
+    }
+  },
+
+  "roles": {
+    "admin": "Admin",
+    "user":  "User"
+  },
+
+  "status": {
+    "active":   "Active",
+    "inactive": "Inactive"
+  }
+}

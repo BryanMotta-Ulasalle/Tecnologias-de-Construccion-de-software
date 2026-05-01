@@ -1,0 +1,10 @@
+{
+    "table":{
+        "id": "ID",
+        "userId": "ID Usuario",
+        "productId": "ID Producto",
+        "quantity": "Cantidad",
+        "totalPrice": "Precio Total",
+        "status": "Estado"
+    }
+}
