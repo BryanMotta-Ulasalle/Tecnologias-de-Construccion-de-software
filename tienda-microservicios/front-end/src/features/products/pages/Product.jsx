@@ -7,17 +7,20 @@ import ButtonCardCreate from '../../../shared/components/ui/ButtonCardCreate'
 import FormCreateProduct from '../components/FormCreateProduct'
 import useClose from '../../../shared/components/hooks/useClose'
 import { Plus } from 'lucide-react';
+import { useTranslation } from 'react-i18next'
 
 const Product = () => {
 
   const { products, createNewProduct } = useProduct()
   const { isOpen, handleOpen, handleClose } = useClose()
 
+  const {t} = useTranslation(['products'])
+
   return (
     <div>
       <div className='py-10 flex items-center justify-between px-10'>
-        <Title title="Productos" description="Lista de productos disponibles"/>
-        <ButtonCardCreate handleOpen={handleOpen} isOpen={isOpen} name='Crear Producto' Icon={Plus}>
+        <Title title={t('products:title')} description={t('products:subtitle')}/>
+        <ButtonCardCreate handleOpen={handleOpen} isOpen={isOpen} name={t('products:addProduct')} Icon={Plus}>
           <FormCreateProduct onClose={handleClose} handleClose={handleClose} onCreateProduct={createNewProduct}/>
         </ButtonCardCreate>
       </div>

@@ -1,10 +1,39 @@
 {
-    "table":{
-        "id": "ID",
-        "userId": "ID Usuario",
-        "productId": "ID Producto",
-        "quantity": "Cantidad",
-        "totalPrice": "Precio Total",
-        "status": "Estado"
-    }
+  "title": "Administración de Órdenes",
+  "subtitle": "Gestiona las órdenes de tu aplicación",
+  "addOrder": "Agregar Orden",
+
+  "table": {
+    "title":  "Lista de Órdenes",
+    "id": "ID",
+    "userId": "ID Usuario",
+    "product": "Producto",
+    "total": "Total",
+    "totalPrice": "Precio Total",
+    "status": "Estado"
+  },
+
+  "form": {
+    "addOrder": "Agregar nueva Orden",
+    "user": {
+      "label":       "Usuario",
+      "defaultOption": "Selecciona el usuario"
+    },
+    "product": {
+      "label":       "Producto",
+      "defaultOption": "Selecciona el producto"
+    },
+    "quantity": {
+      "label":       "Cantidad",
+      "placeholder": "Ingresa la cantidad"
+    },
+    "price":"Precio",
+   "add": "Agregar",
+   "creating": "Creando...",
+    "validation": "Por favor, selecciona a un usuario.",
+    "validation2": "Por favor, agrega al menos un producto al pedido."
+  }
+
+
+
 }

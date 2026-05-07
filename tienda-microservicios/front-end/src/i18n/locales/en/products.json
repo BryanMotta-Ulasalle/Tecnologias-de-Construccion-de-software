@@ -1,7 +1,30 @@
 {
-    "table": {
-        "name": "Name",
-        "price": "Price",
-        "stock": "Stock"
-    }
+  "title": "Product Management",
+  "subtitle": "Manage your application products",
+  "addProduct": "Add Product",
+
+  "table": {
+    "title": "Product List",
+    "name": "Name",
+    "price": "Price",
+    "stock": "Stock"
+  },
+
+  "form": {
+    "addProduct": "Add New Product",
+    "name": {
+      "label": "Name:",
+      "placeholder": "Enter the name"
+    },
+    "price": {
+      "label": "Price:",
+      "placeholder": "Enter the price"
+    },
+    "stock": {
+      "label": "Stock:",
+      "placeholder": "Enter the stock"
+    },
+    "validation": "Please complete all fields correctly. The price must be greater than 0 and the stock cannot be negative.",
+    "validation2": "Error creating the product. Please try again."
+  }
 }

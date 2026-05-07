@@ -6,6 +6,7 @@ import LabelSelect from "../../../shared/components/ui/LabelSelect";
 import { X } from 'lucide-react';
 import { formProductName, formProductStock, formProductPrice } from "../data/data";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const FormCreateProduct = ({ onClose, onCreateProduct, handleClose }) => {
 
@@ -13,10 +14,12 @@ const FormCreateProduct = ({ onClose, onCreateProduct, handleClose }) => {
   const [price, setPrice] = useState();
   const [stock, setStock] = useState();
 
+  const {t} = useTranslation(['products', 'common'])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name.trim() === "" || price <= 0 || stock < 0) {
-      alert("Por favor llena todos los espacios correctamente");
+      alert(t('products:form:validation'));
       return;
     }
 
@@ -28,30 +31,30 @@ const FormCreateProduct = ({ onClose, onCreateProduct, handleClose }) => {
       setStock(0);
       onClose();
     } catch (error) {
-      alert("Error al crear el producto");
+      alert(t('products:form:validation2'));
       console.error(error);
     }
   }
   return (
     <CardCreate>
       <div className="flex items-center justify-between border-b border-tableBorder p-5">
-        <h1 className="text-text2 text-2xl">Agregar nuevo producto</h1>
+        <h1 className="text-text2 text-2xl">{t('products:form:addProduct')}</h1>
         <Button onClick={handleClose} variant="none">
           <X className="w-6 h-6 text-text2 " />
         </Button>
       </div>
       <Form action={handleSubmit}>
         <div className="px-5 py-4 flex flex-col">
-          <LabelInput label={formProductName.label} id={formProductName.name} type={formProductName.type} placeholder={formProductName.placeholder}
+          <LabelInput label={t('products:form:name.label')} id={formProductName.name} type={formProductName.type} placeholder={t('products:form:name.placeholder')}
           value={name} onChange={(e) => {setName(e.target.value); console.log(e.target.value);}} />
-          <LabelInput label={formProductPrice.label} id={formProductPrice.name} type={formProductPrice.type} placeholder={formProductPrice.placeholder}
+          <LabelInput label={t('products:form:price.label')} id={formProductPrice.name} type={formProductPrice.type} placeholder={t('products:form:price.placeholder')}
           value={price} onChange={(e) => {setPrice (parseFloat(e.target.value)); console.log(e.target.value);}} />
-          <LabelInput label={formProductStock.label} id={formProductStock.name} type={formProductStock.type} placeholder={formProductStock.placeholder}
+          <LabelInput label={t('products:form:stock.label')} id={formProductStock.name} type={formProductStock.type} placeholder={t('products:form:stock.placeholder')}
           value={stock} onChange={(e) => {setStock(parseInt(e.target.value)); console.log(e.target.value);}} />
         </div>
         <div className="flex flex-row justify-end py-4 px-5 border-t border-tableBorder">
-          <Button type="button" onClick={handleClose} className="" variant="cancel">Cancelar</Button>
-          <Button type="submit">Crear Producto</Button>
+          <Button type="button" onClick={handleClose} className="" variant="cancel">{t('common:actions.cancel')}</Button>
+          <Button type="submit">{t('products:form:addProduct')}</Button>
         </div>
       </Form>
     </CardCreate>

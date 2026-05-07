@@ -1,10 +1,36 @@
 {
-    "table":{
-        "id": "ID",
-        "userId": "ID User",
-        "productId": "ID Product",
-        "quantity": "Quantity",
-        "totalPrice": "Total Price",
-        "status": "Status"
-    }
+  "title": "Order Management",
+  "subtitle": "Manage your application orders",
+  "addOrder": "Add Order",
+
+  "table": {
+    "title": "Order List",
+    "id": "ID",
+    "userId": "User ID",
+    "product": "Product",
+    "total": "Total",
+    "totalPrice": "Total Price",
+    "status": "Status"
+  },
+
+  "form": {
+    "addOrder": "Add New Order",
+    "user": {
+      "label": "User",
+      "defaultOption": "Select the user"
+    },
+    "product": {
+      "label": "Product",
+      "defaultOption": "Select the product"
+    },
+    "quantity": {
+      "label": "Quantity",
+      "placeholder": "Enter the quantity"
+    },
+    "price": "Price",
+    "add": "Add",
+    "creating": "Creating...",
+    "validation": "Please select a user.",
+    "validation2": "Please add at least one product to the order."
+  }
 }

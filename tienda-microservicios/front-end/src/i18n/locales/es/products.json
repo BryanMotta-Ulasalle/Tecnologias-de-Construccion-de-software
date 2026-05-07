@@ -1,7 +1,31 @@
 {
-    "table": {
-        "name": "Nombre",
-        "price": "Precio",
-        "stock": "Stock"
-    }
+  "title": "Administración de Productos",
+  "subtitle": "Gestiona los productos de tu aplicación",
+  "addProduct": "Agregar Producto",
+
+  "table": {
+    "title":  "Lista de Productos",
+    "name": "Nombre",
+    "price": "Precio",
+    "stock": "Stock"
+  },
+
+   "form": {
+    "addProduct": "Agregar nuevo Producto",
+    "name": {
+      "label":       "Nombre:",
+      "placeholder": "Ingresa el nombre"
+    },
+    "price": {
+      "label":       "Precio:",
+      "placeholder": "Ingresa el precio"
+    },
+    "stock": {
+      "label":       "Stock:",
+      "placeholder": "Ingresa el stock"
+    },
+    "validation": "Por favor, completa todos los campos correctamente. El precio debe ser mayor a 0 y el stock no puede ser negativo.",
+    "validation2": "Error al crear el producto. Por favor, intenta nuevamente."
+  }
 }
+
