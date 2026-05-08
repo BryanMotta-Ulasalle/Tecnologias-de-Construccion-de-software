@@ -9,6 +9,7 @@ import useProductosSeleccionados from "../hooks/useProductosSeleccionados";
 import TableCreateProductosDetail from "./TableCreateProductosDetail";
 import useLoading from "../../../shared/components/hooks/useLoading";
 import { useTranslation } from "react-i18next";
+import { validateOption } from "../../../validators/option.validator";
 const FormCreatePedido = ({
   onCreatePedido,
   handleClose,
@@ -29,6 +30,7 @@ const FormCreatePedido = ({
   } = useProductosSeleccionados();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { t } = useTranslation(["orders","common"]);
+  const [error, setError] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +47,9 @@ const FormCreatePedido = ({
       return;
     }
 
-    startLoading(); // Start loading indicator
+    const userError = validateOption(userId);
+
+    startLoading(); 
 
     try {
       await onCreatePedido({

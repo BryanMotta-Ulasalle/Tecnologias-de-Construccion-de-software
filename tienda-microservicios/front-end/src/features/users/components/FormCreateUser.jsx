@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, {useState } from "react";
 import Form from "../../../shared/components/ui/Form";
 import CardCreate from "../../../shared/components/ui/CardCreate";
 import {formUsersName, formUsersEmail, formUsersRole, formUsersStatus} from "../data/data"
@@ -7,10 +7,14 @@ import LabelInput from "../../../shared/components/ui/LabelInput";
 import { X } from 'lucide-react';
 import LabelSelect from "../../../shared/components/ui/LabelSelect";
 import { useTranslation } from "react-i18next";
+import validateName from "../../../validators/name.validator";
+import { validateEmail } from "../../../validators/email.validator";
 
 const FormCreateUser = ({ onClose, onCreateUser,  handleClose}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
+  const [error, setError] = useState({});
 
   const {t} = useTranslation('users', 'common');
 
@@ -19,6 +23,22 @@ const FormCreateUser = ({ onClose, onCreateUser,  handleClose}) => {
 
     if (name.trim() === "" || email.trim() === "") {
       alert("Please fill in all fields");
+      return;
+    }
+
+    const nameError = validateName(name);
+
+    setError({ name: nameError });
+
+    if (nameError) {
+      return;
+    }
+
+    const emailError = validateEmail(email);
+
+    setError({ email: emailError });
+
+    if (emailError) {
       return;
     }
 
@@ -44,6 +64,7 @@ const FormCreateUser = ({ onClose, onCreateUser,  handleClose}) => {
       </div>
       <Form action={handleSubmit}>
         <div className="px-5 py-4 flex flex-col">
+          
           <LabelInput
           label={t('users:form.name.label')}
           id={formUsersName.name}
@@ -52,6 +73,8 @@ const FormCreateUser = ({ onClose, onCreateUser,  handleClose}) => {
           value={name}
           onChange={(e) => {setName(e.target.value); console.log(e.target.value)}}
         />
+        {error.name && <p className="text-red-500 text-sm mb-2">{error.name}</p>}
+        
         <LabelInput
           label={t('users:form.email.label')}
           id={formUsersEmail.name}
@@ -60,6 +83,7 @@ const FormCreateUser = ({ onClose, onCreateUser,  handleClose}) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {error.email && <p className="text-red-500 text-sm mb-2">{error.email}</p>}
         <div className="flex flex-row gap-8">
           <div className="flex-1">
             <LabelSelect selectOptions={formUsersRole} htmlFor="Rol" children={t('users:form.role.label')} />

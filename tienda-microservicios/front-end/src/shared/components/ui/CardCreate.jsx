@@ -3,7 +3,7 @@
 const CardCreate = ({children, variant = "normal"}) => {
 
   const variants = {
-    normal:"w-100 h-110 ",
+    normal:"w-100 ",
     big: "w-150 h-170 "
   }
 

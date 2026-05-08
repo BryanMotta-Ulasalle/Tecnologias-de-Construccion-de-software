@@ -7,6 +7,9 @@ import { X } from 'lucide-react';
 import { formProductName, formProductStock, formProductPrice } from "../data/data";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import validateName from "../../../validators/name.validator";
+import { validatePrice } from "../../../validators/price.validator";
+import { validateStock } from "../../../validators/stock.validator";
 
 const FormCreateProduct = ({ onClose, onCreateProduct, handleClose }) => {
 
@@ -14,12 +17,24 @@ const FormCreateProduct = ({ onClose, onCreateProduct, handleClose }) => {
   const [price, setPrice] = useState();
   const [stock, setStock] = useState();
 
+  const [error, setError] = useState({});
+
   const {t} = useTranslation(['products', 'common'])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name.trim() === "" || price <= 0 || stock < 0) {
       alert(t('products:form:validation'));
+      return;
+    }
+
+    const nameError = validateName(name);
+    const priceError = validatePrice(price);
+    const stockError = validateStock(stock);
+
+    setError({ name: nameError, price: priceError, stock: stockError });
+
+    if (nameError || priceError || stockError) {
       return;
     }
 
@@ -47,10 +62,13 @@ const FormCreateProduct = ({ onClose, onCreateProduct, handleClose }) => {
         <div className="px-5 py-4 flex flex-col">
           <LabelInput label={t('products:form:name.label')} id={formProductName.name} type={formProductName.type} placeholder={t('products:form:name.placeholder')}
           value={name} onChange={(e) => {setName(e.target.value); console.log(e.target.value);}} />
+          {error.name && <p className="text-red-500 text-sm mt-1">{error.name}</p>}
           <LabelInput label={t('products:form:price.label')} id={formProductPrice.name} type={formProductPrice.type} placeholder={t('products:form:price.placeholder')}
           value={price} onChange={(e) => {setPrice (parseFloat(e.target.value)); console.log(e.target.value);}} />
+          {error.price && <p className="text-red-500 text-sm mt-1">{error.price}</p>}
           <LabelInput label={t('products:form:stock.label')} id={formProductStock.name} type={formProductStock.type} placeholder={t('products:form:stock.placeholder')}
           value={stock} onChange={(e) => {setStock(parseInt(e.target.value)); console.log(e.target.value);}} />
+          {error.stock && <p className="text-red-500 text-sm mt-1">{error.stock}</p>}
         </div>
         <div className="flex flex-row justify-end py-4 px-5 border-t border-tableBorder">
           <Button type="button" onClick={handleClose} className="" variant="cancel">{t('common:actions.cancel')}</Button>
