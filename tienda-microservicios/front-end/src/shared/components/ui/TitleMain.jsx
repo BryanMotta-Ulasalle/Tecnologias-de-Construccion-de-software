@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 
 const TitleMain = ({ icon: Icon, h1, p }) => {
     return (
@@ -10,6 +10,12 @@ const TitleMain = ({ icon: Icon, h1, p }) => {
             </div>
         </div>
     )
+}
+
+TitleMain.propTypes = {
+    icon: PropTypes.elementType,
+    h1: PropTypes.string.isRequired,
+    p: PropTypes.string.isRequired,
 }
 
 export default TitleMain

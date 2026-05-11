@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import {Table_style, thead_style, tbody_style, td_style, th_Style} from '../../../shared/data/styles'
 import { useTranslation } from "react-i18next";
 const TableCreateProductosDetail = ({data}) => {
@@ -29,3 +29,7 @@ const TableCreateProductosDetail = ({data}) => {
 }
 
 export default TableCreateProductosDetail
+
+TableCreateProductosDetail.propTypes = {
+    data: PropTypes.array.isRequired,
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import NavItem from './NavItem'
 import { House } from 'lucide-react';
 import { Users } from 'lucide-react';
@@ -19,5 +19,7 @@ const Nav = () => {
     </div>
   )
 }
+
+Nav.propTypes = {}
 
 export default Nav

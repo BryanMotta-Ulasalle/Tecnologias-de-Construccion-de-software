@@ -1,4 +1,3 @@
-import React from 'react'
 import ProductTable from '../components/ProductTable'
 import { headerTable } from '../data/data'
 import useProduct from '../hooks/useProduct'
@@ -11,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 
 const Product = () => {
 
-  const { products, createNewProduct } = useProduct()
+  const { products, createNewProduct, isLoading, error, refreshProducts } = useProduct()
   const { isOpen, handleOpen, handleClose } = useClose()
 
   const {t} = useTranslation(['products'])
@@ -25,7 +24,9 @@ const Product = () => {
         </ButtonCardCreate>
       </div>
       <div className='p-10'>
-        <ProductTable header={headerTable} data={products}/>
+        {error && <p role="alert" className="text-red-400 mb-4">No se pudieron cargar los productos.</p>}
+        {isLoading ? <p className="text-text1">Cargando productos...</p> : <ProductTable header={headerTable} data={products}/>}
+        {error && <button type="button" onClick={refreshProducts} className="mt-4 text-text2 underline">Reintentar</button>}
       </div>
     </div>
   )

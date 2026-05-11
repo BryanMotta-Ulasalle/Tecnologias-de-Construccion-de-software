@@ -1,4 +1,3 @@
-
 import { headerTable } from '../data/data'
 
 import UserTable from '../components/UserTable'
@@ -12,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 
 const User = () => {
 
-  const { users, createNewUser } = useUsers()
+  const { users, createNewUser, isLoading, error, reloadUsers } = useUsers()
   const { isOpen, handleOpen, handleClose } = useClose()
 
   const {t} = useTranslation(['users'])
@@ -27,7 +26,9 @@ const User = () => {
       </div>
 
       <div className='p-10'>
-        <UserTable header={headerTable} data={users} />
+        {error && <p role="alert" className="text-red-400 mb-4">No se pudieron cargar los usuarios.</p>}
+        {isLoading ? <p className="text-text1">Cargando usuarios...</p> : <UserTable header={headerTable} data={users} />}
+        {error && <button type="button" onClick={reloadUsers} className="mt-4 text-text2 underline">Reintentar</button>}
       </div>
 
       

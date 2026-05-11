@@ -1,6 +1,7 @@
 
+import PropTypes from 'prop-types'
 
-const CardCreate = ({children, variant = "normal"}) => {
+const CardCreate = ({children, variant = "normal", className = ""}) => {
 
   const variants = {
     normal:"w-100 ",
@@ -9,10 +10,16 @@ const CardCreate = ({children, variant = "normal"}) => {
 
 
   return (
-    <div className={`border z-9 bg-chart1 border-tableBorder rounded-2xl ${variants[variant]}`}  >
+    <div className={`border z-9 bg-chart1 border-tableBorder rounded-2xl ${variants[variant]} ${className}`} role="dialog" aria-modal="true" >
       {children}  
     </div>
   )
+}
+
+CardCreate.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['normal', 'big']),
+  className: PropTypes.string,
 }
 
 export default CardCreate

@@ -1,6 +1,6 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 
-const Button = ({ children, variant = "normal", onClick, type, className = "" }) => {
+const Button = ({ children, variant = "normal", onClick, type = "button", className = "", disabled = false, ariaLabel }) => {
 
   const variants = {
     normal: "bg-button text-white  text-lg rounded-lg flex flex-row items-center gap-2 hover:bg-buttonHover disabled:bg-gray-400 disabled:cursor-not-allowed  disabled:hover:bg-gray-400",
@@ -14,10 +14,22 @@ const Button = ({ children, variant = "normal", onClick, type, className = "" })
         className={`px-4 py-3 cursor-pointer ${className} ${variants[variant]}`}
         onClick={onClick}
         type={type}
+        disabled={disabled}
+        aria-label={ariaLabel}
       >
         {children}
       </button>
   )
+}
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['normal', 'cancel', 'add', 'none']),
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 }
 
 export default Button

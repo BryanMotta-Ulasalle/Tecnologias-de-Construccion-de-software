@@ -1,18 +1,17 @@
-
-import usePedidos from "../hooks/usePedidos";
-import TablePedidos from "../components/TablePedidos";
-import { header } from "../data/data";
-import ButtonDetalleProductos from "../components/ButtonDetalleProductos";
-import useClose from "../../../shared/components/hooks/useClose";
-import CardDetalleProductos from "../components/cardDetalleProductos";
-import Title from "../../../shared/components/ui/Title";
-import ButtonCardCreate from "../../../shared/components/ui/ButtonCardCreate";
-import FormCreatePedido from "../components/FormCreatePedido";
-import { Plus } from "lucide-react";
-import useOpenCloseDetailProduct from "../hooks/useOpenCloseDetailProduct";
-import useUsers from "../../users/hooks/useUsers";
-import useProtuct from "../../products/hooks/useProduct";
-import { useTranslation } from "react-i18next";
+import { Plus } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import usePedidos from '../hooks/usePedidos'
+import TablePedidos from '../components/TablePedidos'
+import { header } from '../data/data'
+import ButtonDetalleProductos from '../components/ButtonDetalleProductos'
+import useClose from '../../../shared/components/hooks/useClose'
+import CardDetalleProductos from '../components/CardDetalleProductos'
+import Title from '../../../shared/components/ui/Title'
+import ButtonCardCreate from '../../../shared/components/ui/ButtonCardCreate'
+import FormCreatePedido from '../components/FormCreatePedido'
+import useOpenCloseDetailProduct from '../hooks/useOpenCloseDetailProduct'
+import useUsers from '../../users/hooks/useUsers'
+import useProduct from '../../products/hooks/useProduct'
 
 const Pedidos = () => {
   const {
@@ -25,9 +24,9 @@ const Pedidos = () => {
   const { isOpenDetail, handleOpenDetail, handleCloseDetail } =
     useOpenCloseDetailProduct();
   const { usersList } = useUsers();
-  const { products } = useProtuct();
+  const { products } = useProduct();
 
-  const { t } = useTranslation(["orders"]);
+  const { t } = useTranslation(['orders']);
 
   return (
     <main>
@@ -67,4 +66,4 @@ const Pedidos = () => {
   );
 };
 
-export default Pedidos;
+export default Pedidos

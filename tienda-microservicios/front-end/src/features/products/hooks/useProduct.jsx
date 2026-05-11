@@ -1,34 +1,69 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { getProducts,createProduct } from '../services/productServices'
+/*
+        Código anterior (fragmento estimado, recuperado como comentario):
+
+        // import { useEffect, useState } from 'react'
+        // import { getProducts, createProduct } from '../services/productServices'
+        //
+        // const useProduct = () => {
+        //   const [products, setProducts] = useState([])
+        //   const [isLoading, setIsLoading] = useState(true)
+        //   const [error, setError] = useState(null)
+        //
+        //   useEffect(() => {
+        //     let mounted = true
+        //     getProducts().then(data => { if (mounted) setProducts(data) })
+        //       .catch(e => { if (mounted) setError(e) })
+        //       .finally(() => { if (mounted) setIsLoading(false) })
+        //     return () => { mounted = false }
+        //   }, [])
+        //
+        //   const createNewProduct = async (pd) => {
+        //     const res = await createProduct(pd)
+        //     setProducts(prev => [...prev, res])
+        //     return res
+        //   }
+        //
+        //   return { products, createNewProduct, isLoading, error }
+        // }
+
+        Ahora: reutiliza `useResource` para cargar y cachear `products`.
+*/
+
+import { useCallback, useMemo } from 'react'
+import { getProducts, createProduct } from '../services/productServices'
+import useResource from '../../../shared/hooks/useResource'
 
 const useProduct = () => {
+                const {
+                        data: products,
+                        setData: setProducts,
+                        isLoading,
+                        error,
+                        refetch,
+                } = useResource({
+                        cacheKey: 'products',
+                        fetcher: getProducts,
+                        initialValue: [],
+                })
 
-    const [products, setProducts] = useState([])
+        const createNewProduct = useCallback(async (productData) => {
+                                const response = await createProduct(productData)
+                                setProducts((prevProducts) => [...prevProducts, response])
+                return response
+                }, [setProducts])
 
-    const fetchProducts = useCallback( async () => {
-        try {
-            const data = await getProducts()
-            setProducts(data)
-        } catch (error) {
-            console.error('Error fetching products:', error)
-        }
-    }, [])  
+                const refreshProducts = useCallback(() => refetch(), [refetch])
 
-    const createNewProduct = useCallback(async (productData) => {
-        const response = await createProduct(productData)
-        setProducts(prevProducts => [...prevProducts, productData])
-        return response
-    }, [])
-
-    useEffect(() => {
-        fetchProducts()
-    }, [fetchProducts])
+                const sortedProducts = useMemo(() => [...products], [products])
 
 
-  return {
-    products,
-    createNewProduct
-  }
+    return {
+                products: sortedProducts,
+                createNewProduct,
+                isLoading,
+                error,
+                refreshProducts,
+    }
 }
 
 export default useProduct

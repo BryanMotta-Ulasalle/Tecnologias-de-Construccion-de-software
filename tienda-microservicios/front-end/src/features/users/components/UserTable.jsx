@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import { Table_style, tbody_style, td_style, th_Style, thead_style } from '../../../shared/data/styles'
 import { useTranslation } from 'react-i18next'
 
@@ -36,3 +36,8 @@ const UserTable = ({ data }) => {
 }
 
 export default UserTable
+
+UserTable.propTypes = {
+    header: PropTypes.arrayOf(PropTypes.string).isRequired,
+    data: PropTypes.array.isRequired,
+}

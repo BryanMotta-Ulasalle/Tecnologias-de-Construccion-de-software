@@ -1,20 +1,16 @@
-import {useState} from 'react'
+import { useCallback, useState } from 'react'
 
 const useOpenCloseDetailProduct = () => {
 
     const [isOpenDetail, setIsOpenDetail] = useState(false)
     
-        const handleOpenDetail = () => {
-            console.log("click para abrir")
-            setIsOpenDetail(true)
+        const handleOpenDetail = useCallback(() => {
+          setIsOpenDetail(true)
+        }, [])
     
-            
-        }
-    
-        const handleCloseDetail = () => {
-            setIsOpenDetail(false)
-            console.log("se hixo click en un boton de cerrar")
-        }
+        const handleCloseDetail = useCallback(() => {
+          setIsOpenDetail(false)
+        }, [])
 
   return {
     isOpenDetail,
