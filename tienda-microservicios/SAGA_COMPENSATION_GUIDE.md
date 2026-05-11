@@ -429,26 +429,6 @@ Evento: payment.failed
 
 ---
 
-## 🔗 Archivos Modificados
-
-```
-servicios/pedidos/
-├── models.py (Outbox, SagaState ya existen)
-├── routes.py (validación con Counter ya existe)
-├── outbox_publisher.py (ya existe)
-└── compensation_consumer.py ← ✨ NUEVO
-
-servicios/productos/
-├── models.py (ProcessedMessage ya existe)
-├── inventory_consumer.py (failure injection ← MODIFICADO)
-└── requirements.txt (pika ya existe)
-
-servicios/shared/
-└── messaging.py (ya existe)
-```
-
----
-
 ## ✅ Checklist de Verificación
 
 - [ ] Producto creado con stock=1
@@ -460,4 +440,126 @@ servicios/shared/
 - [ ] Database: Pedido.estado cambió a 'cancelado'
 - [ ] Database: SagaState.state = 'COMPENSATION_STARTED'
 - [ ] Logs muestran saga_id consistente en todos los eventos
+
+---
+
+## 📦 Instalación y Ejecución (incluye Docker: RabbitMQ)
+
+Breve: los pasos siguientes ponen en marcha RabbitMQ (Docker), una base de datos PostgreSQL opcional (Docker), y los entornos Python de cada servicio para ejecutar consumers y utilidades de prueba.
+
+Requisitos previos
+- Docker / Docker Desktop instalado y corriendo.
+- Python 3.9+ y `virtualenv` o `venv`.
+
+1) Levantar RabbitMQ (Docker)
+
+```bash
+# Ejecutar RabbitMQ con management UI
+docker run -d --name rabbitmq \
+  -p 5672:5672 -p 15672:15672 \
+  -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_DEFAULT_PASS=guest \
+  rabbitmq:3-management
+
+# Ver UI: http://localhost:15672 (user: guest / pass: guest)
+```
+
+2) (Opcional) Levantar PostgreSQL para `productos` (si no tienes DB local)
+
+```bash
+docker run -d --name pg-productos \
+  -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret123 -e POSTGRES_DB=productos_db \
+  -p 5433:5432 postgres:13
+
+# Ajusta credenciales si tu código usa otras.
+```
+
+3) Preparar entornos Python por servicio
+
+Por cada servicio (`services/productos`, `services/pedidos`, `services/usuarios`) crea y activa el virtualenv e instala dependencias.
+
+Ejemplo (Windows/Git Bash / WSL):
+
+```bash
+# Productos
+cd tienda-microservicios/services/productos
+python -m venv prducts_env
+source prducts_env/Scripts/activate
+# Si existe requirements.txt
+if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+# paquetes necesarios (si no hay requirements)
+pip install pika flask sqlalchemy psycopg2-binary
+
+# Pedidos
+cd ../pedidos
+python -m venv pedidos_env
+source pedidos_env/Scripts/activate
+if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+pip install pika flask sqlalchemy psycopg2-binary
+
+# Usuarios (similar)
+cd ../usuarios
+python -m venv users_env
+source users_env/Scripts/activate
+if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+pip install pika flask sqlalchemy
+```
+
+4) Variables de entorno (ejemplos)
+
+```bash
+# URL DB para productos (ajusta puerto/credenciales si cambiaste)
+export PRODUCTOS_DATABASE_URL="postgresql://admin:secret123@localhost:5433/productos_db"
+
+# Inyección de fallos (opcional)
+export FAIL_FOR_PRODUCT_ID=7
+```
+
+En PowerShell (Windows) usa `setx` o `$env:VAR='value'` para la sesión:
+
+```powershell
+$env:PRODUCTOS_DATABASE_URL='postgresql://admin:secret123@localhost:5433/productos_db'
+$env:FAIL_FOR_PRODUCT_ID='7'
+```
+
+5) Arrancar los servicios y consumers (orden sugerido)
+
+```bash
+# Pedidos app (API)
+cd tienda-microservicios/services/pedidos
+source pedidos_env/Scripts/activate
+python app.py
+
+# Compensation consumer (pedidos)
+source pedidos_env/Scripts/activate
+python compensation_consumer.py
+
+# Outbox publisher (run periódicamente o en background)
+python outbox_publisher.py
+
+# Productos app + consumers
+cd ../productos
+source prducts_env/Scripts/activate
+python app.py
+python inventory_consumer.py
+python inventory_release_consumer.py
+
+# Utilidades de prueba
+python publish_releases.py
+python inspect_inventory.py
+```
+
+6) Comprobaciones rápidas
+- Accede a RabbitMQ UI: http://localhost:15672
+- Verifica colas/consumers y headers `saga_id` en mensajes.
+- Ejecuta `inspect_inventory.py` para revisar `Reservation` y `Producto.stock`.
+
+7) Troubleshooting rápido
+- Si `pika` falta: `pip install pika` en el venv correspondiente.
+- `ConnectionRefusedError` a RabbitMQ: confirma Docker está corriendo y que el contenedor `rabbitmq` está UP (`docker ps`).
+- Problemas con Postgres: revisa que estás mapeando el puerto 5433 al 5432 del contenedor si usas el comando sugerido.
+- Consumers con permisos o colas: borra y vuelve a declarar colas si cambias schema (consistencia de headers `saga_id`).
+
+---
+
+Fin de la sección de instalación.
 
