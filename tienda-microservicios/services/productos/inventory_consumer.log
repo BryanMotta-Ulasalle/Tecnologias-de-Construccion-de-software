@@ -1,0 +1,76 @@
+[2026-05-11 15:51:47,528] INFO - Connecting to RabbitMQ...
+[2026-05-11 15:51:47,585] INFO - Declaring queue: order.created
+[2026-05-11 15:51:47,596] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 15:53:13,780] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Processing order 18 with 1 items
+[2026-05-11 15:53:13,788] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Producto 5 (Gorra) has insufficient stock: 0
+[2026-05-11 15:53:13,789] WARNING - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] RESERVE FAILED for order 18. Issues: [{'id': 5, 'reason': 'insufficient_stock', 'available': 0}]
+[2026-05-11 15:53:13,896] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Published inventory.reserve_failed
+[2026-05-11 16:29:05,232] INFO - Connecting to RabbitMQ...
+[2026-05-11 16:29:05,287] INFO - Declaring queue: order.created
+[2026-05-11 16:29:05,295] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 16:29:43,791] INFO - Connecting to RabbitMQ...
+[2026-05-11 16:29:43,850] INFO - Declaring queue: order.created
+[2026-05-11 16:29:43,861] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 16:29:59,972] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Processing order 24 with 1 items
+[2026-05-11 16:29:59,982] WARNING - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] FAILURE INJECTION TRIGGERED for product 9
+[2026-05-11 16:29:59,983] WARNING - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] RESERVE FAILED for order 24. Issues: [{'id': 9, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 16:30:00,096] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Published inventory.reserve_failed
+[2026-05-11 16:36:16,030] INFO - Connecting to RabbitMQ...
+[2026-05-11 16:36:16,083] INFO - Declaring queue: order.created
+[2026-05-11 16:36:16,094] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 16:37:52,050] INFO - [SAGA:c8d5b082-1fe3-4ede-b566-562c83fa5cc0] Processing order 25 with 1 items
+[2026-05-11 16:37:52,055] INFO - [SAGA:c8d5b082-1fe3-4ede-b566-562c83fa5cc0] Decremented stock for producto 1 (celular samsung a51): 3 -> 2 (qty 1)
+[2026-05-11 16:37:52,058] INFO - [SAGA:c8d5b082-1fe3-4ede-b566-562c83fa5cc0] Processing order 25 with 1 items
+[2026-05-11 16:37:52,064] INFO - [SAGA:c8d5b082-1fe3-4ede-b566-562c83fa5cc0] Stock reserved successfully for order 25
+[2026-05-11 16:37:52,066] INFO - [SAGA:c8d5b082-1fe3-4ede-b566-562c83fa5cc0] Already processed, skipping (idempotent)
+[2026-05-11 16:37:52,175] INFO - [SAGA:c8d5b082-1fe3-4ede-b566-562c83fa5cc0] Published inventory.reserved
+[2026-05-11 16:39:03,396] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Processing order 26 with 1 items
+[2026-05-11 16:39:03,403] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Decremented stock for producto 9 (ProductoConFallo): 4 -> 3 (qty 1)
+[2026-05-11 16:39:03,403] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Processing order 26 with 1 items
+[2026-05-11 16:39:03,407] WARNING - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] FAILURE INJECTION TRIGGERED for product 9
+[2026-05-11 16:39:03,408] WARNING - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] RESERVE FAILED for order 26. Issues: [{'id': 9, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 16:39:03,411] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Stock reserved successfully for order 26
+[2026-05-11 16:39:03,516] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Published inventory.reserve_failed
+[2026-05-11 16:39:03,522] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Published inventory.reserved
+[2026-05-11 16:49:22,963] INFO - Connecting to RabbitMQ...
+[2026-05-11 16:49:23,018] INFO - Declaring queue: order.created
+[2026-05-11 16:49:23,027] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 16:49:40,791] INFO - [SAGA:efca6602-8dd5-460f-b6cc-358d5d8b9317] Processing order 27 with 1 items
+[2026-05-11 16:49:40,795] INFO - [SAGA:efca6602-8dd5-460f-b6cc-358d5d8b9317] Decremented stock for producto 1 (celular samsung a51): 2 -> 1 (qty 1)
+[2026-05-11 16:49:40,799] INFO - [SAGA:efca6602-8dd5-460f-b6cc-358d5d8b9317] Processing order 27 with 1 items
+[2026-05-11 16:49:40,804] INFO - [SAGA:efca6602-8dd5-460f-b6cc-358d5d8b9317] Stock reserved successfully for order 27
+[2026-05-11 16:49:40,807] INFO - [SAGA:efca6602-8dd5-460f-b6cc-358d5d8b9317] Already processed, skipping (idempotent)
+[2026-05-11 16:49:40,919] INFO - [SAGA:efca6602-8dd5-460f-b6cc-358d5d8b9317] Published inventory.reserved
+[2026-05-11 16:55:12,607] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Processing order 28 with 1 items
+[2026-05-11 16:55:12,611] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Decremented stock for producto 1 (celular samsung a51): 1 -> 0 (qty 1)
+[2026-05-11 16:55:12,614] WARNING - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] FAILURE INJECTION TRIGGERED for product 1
+[2026-05-11 16:55:12,614] WARNING - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] RESERVE FAILED for order 28. Issues: [{'id': 1, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 16:55:12,619] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Stock reserved successfully for order 28
+[2026-05-11 16:55:12,724] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Published inventory.reserve_failed
+[2026-05-11 16:55:12,729] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Published inventory.reserved
+[2026-05-11 17:00:09,983] INFO - Connecting to RabbitMQ...
+[2026-05-11 17:00:10,039] INFO - Declaring queue: order.created
+[2026-05-11 17:00:10,048] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 17:00:33,416] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Processing order 29 with 1 items
+[2026-05-11 17:00:33,420] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Decremented stock for producto 10 (ProductoReserva): 3 -> 2 (qty 1)
+[2026-05-11 17:00:33,424] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Processing order 29 with 1 items
+[2026-05-11 17:00:33,429] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Decremented stock for producto 10 (ProductoReserva): 3 -> 2 (qty 1)
+[2026-05-11 17:00:33,430] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Stock reserved successfully for order 29
+[2026-05-11 17:00:33,435] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Stock reserved successfully for order 29
+[2026-05-11 17:00:33,533] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Published inventory.reserved
+[2026-05-11 17:00:33,539] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Published inventory.reserved
+[2026-05-11 17:03:06,546] INFO - [SAGA:test-release-saga] Processing order 999 with 1 items
+[2026-05-11 17:03:06,558] INFO - [SAGA:test-release-saga] Decremented stock for producto 10 (ProductoReserva): 2 -> 1 (qty 1)
+[2026-05-11 17:03:06,567] INFO - [SAGA:test-release-saga] Stock reserved successfully for order 999
+[2026-05-11 17:03:06,674] INFO - [SAGA:test-release-saga] Published inventory.reserved
+[2026-05-11 17:20:40,343] INFO - Connecting to RabbitMQ...
+[2026-05-11 17:20:40,403] INFO - Declaring queue: order.created
+[2026-05-11 17:20:40,414] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 17:21:16,936] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Processing order 30 with 1 items
+[2026-05-11 17:21:16,940] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Processing order 30 with 1 items
+[2026-05-11 17:21:16,950] WARNING - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] FAILURE INJECTION TRIGGERED for product 9
+[2026-05-11 17:21:16,950] WARNING - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] RESERVE FAILED for order 30. Issues: [{'id': 9, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 17:21:16,959] WARNING - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] FAILURE INJECTION TRIGGERED for product 9
+[2026-05-11 17:21:16,959] WARNING - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] RESERVE FAILED for order 30. Issues: [{'id': 9, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 17:21:17,055] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published inventory.reserve_failed
+[2026-05-11 17:21:17,073] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published inventory.reserve_failed

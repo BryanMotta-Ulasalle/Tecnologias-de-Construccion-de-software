@@ -13,6 +13,8 @@ class Usuario(db.Model):
     id         = db.Column(db.Integer, primary_key=True)
     nombre     = db.Column(db.String(100), nullable=False)
     email      = db.Column(db.String(100), unique=True, nullable=False)
+    rol       = db.Column(db.String(20), nullable=False, default='cliente')
+    estado    = db.Column(db.String(20), nullable=False, default='activo')
     creado_en  = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Este método convierte el objeto a diccionario
@@ -22,5 +24,7 @@ class Usuario(db.Model):
             'id':        self.id,
             'nombre':    self.nombre,
             'email':     self.email,
+            'rol':       self.rol,
+            'estado':    self.estado,
             'creado_en': self.creado_en.isoformat()
         }

@@ -1,0 +1,24 @@
+[2026-05-11 16:59:46,576] INFO - Connecting to RabbitMQ for inventory release consumer...
+[2026-05-11 16:59:46,719] INFO - Inventory release consumer started. Listening for inventory.release...
+[2026-05-11 17:01:10,440] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Received inventory.release for order 29 with 1 items
+[2026-05-11 17:01:10,449] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] No reservation record found; skipping release
+[2026-05-11 17:04:03,692] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Received inventory.release for order 24 with 1 items
+[2026-05-11 17:04:03,697] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] No reservation record found; skipping release
+[2026-05-11 17:09:44,996] INFO - Connecting to RabbitMQ for inventory release consumer...
+[2026-05-11 17:09:45,063] INFO - Inventory release consumer started. Listening for inventory.release...
+[2026-05-11 17:10:05,236] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Received inventory.release for order 24 with 1 items
+[2026-05-11 17:10:05,240] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] No reservation record found; skipping release
+[2026-05-11 17:10:05,340] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Received inventory.release for order 29 with 1 items
+[2026-05-11 17:10:05,349] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] No reservation record found; proceeding using payload as fallback
+[2026-05-11 17:10:05,353] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Released stock for producto 10: 1 -> 2 (+1)
+[2026-05-11 17:10:05,361] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Inventory release committed for order 29
+[2026-05-11 17:11:22,985] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Received inventory.release for order 24 with 1 items
+[2026-05-11 17:11:22,988] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] No reservation record found; skipping release
+[2026-05-11 17:11:23,088] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Received inventory.release for order 29 with 1 items
+[2026-05-11 17:11:23,093] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Already released; skipping
+[2026-05-11 17:17:01,180] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Received inventory.release for order 24 with 1 items
+[2026-05-11 17:17:01,183] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] No reservation record found; skipping release
+[2026-05-11 17:17:01,281] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Received inventory.release for order 29 with 1 items
+[2026-05-11 17:17:01,285] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Already released; skipping
+[2026-05-11 17:21:17,330] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Received inventory.release for order 30 with 1 items
+[2026-05-11 17:21:17,334] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] No reservation record found; skipping release

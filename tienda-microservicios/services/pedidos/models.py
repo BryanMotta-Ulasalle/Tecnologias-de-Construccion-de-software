@@ -23,3 +23,23 @@ class Pedido(db.Model):
             'estado':     self.estado,
             'creado_en':  self.creado_en.isoformat()
         }
+
+
+class Outbox(db.Model):
+    __tablename__ = 'outbox'
+
+    id = db.Column(db.Integer, primary_key=True)
+    saga_id = db.Column(db.String(36), index=True, nullable=False)
+    event_type = db.Column(db.String(100), nullable=False)
+    payload = db.Column(db.JSON, nullable=False)
+    sent = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class SagaState(db.Model):
+    __tablename__ = 'saga_states'
+
+    saga_id = db.Column(db.String(36), primary_key=True)
+    state = db.Column(db.String(50), nullable=False)
+    data = db.Column(db.JSON, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

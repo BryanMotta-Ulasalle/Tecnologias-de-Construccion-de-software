@@ -1,9 +1,12 @@
 from flask import Blueprint, request, jsonify
-from models import db, Pedido
+from models import db, Pedido, Outbox, SagaState
 import requests as http  # renombramos para no confundir con flask request
 import os
+import logging
+from collections import Counter
 
 pedidos_bp = Blueprint('pedidos', __name__)
+logger = logging.getLogger(__name__)
 
 USUARIOS_URL  = os.getenv('USUARIOS_SERVICE_URL')
 PRODUCTOS_URL = os.getenv('PRODUCTOS_SERVICE_URL')
@@ -39,20 +42,67 @@ def crear_pedido():
             return jsonify({'error': f'Producto {pid} no encontrado'}), 404
         productos_encontrados.append(resp.json())
 
-    # ── 3. Calcular total ──
+    # ── 3. Validar stock ANTES de crear el pedido ──
+    cantidades = Counter(producto_ids)
+    productos_por_id = {}
+    for producto in productos_encontrados:
+        productos_por_id[producto['id']] = producto
+
+    sin_stock = []
+    for producto_id, cantidad in cantidades.items():
+        producto = productos_por_id[producto_id]
+        stock_disponible = producto.get('stock', 0)
+        if stock_disponible < cantidad:
+            sin_stock.append({
+                'id': producto_id,
+                'nombre': producto['nombre'],
+                'cantidad_solicitada': cantidad,
+                'stock_disponible': stock_disponible
+            })
+
+    if sin_stock:
+        logger.warning(f'Pedido rechazado por stock insuficiente: {sin_stock}')
+        return jsonify({
+            'error': 'Stock insuficiente',
+            'items': sin_stock
+        }), 409
+
+    # ── 4. Calcular total ──
     total = sum(p['precio'] for p in productos_encontrados)
 
-    # ── 4. Guardar pedido con snapshot de productos ──
+    # ── 5. Guardar pedido con snapshot de productos y registrar evento Outbox ──
+    from uuid import uuid4
+    saga_id = str(uuid4())
+
     nuevo = Pedido(
         usuario_id=usuario_id,
         productos=[{'id': p['id'], 'nombre': p['nombre'], 'precio': p['precio']}
                    for p in productos_encontrados],
         total=total
     )
-    db.session.add(nuevo)
-    db.session.commit()
 
-    # ── 5. Responder con pedido + info del usuario ──
+    # Insertar pedido y outbox en la misma transacción
+    db.session.add(nuevo)
+    db.session.flush()  # asigna ID al pedido
+    
+    # Ahora que tenemos el ID del pedido, crear el outbox con payload correcto
+    out = Outbox(saga_id=saga_id, event_type='order.created', payload={
+        'order_id': nuevo.id,
+        'usuario_id': usuario_id,
+        'productos': [{'id': p['id'], 'nombre': p['nombre'], 'precio': p['precio']} for p in productos_encontrados],
+        'total': total
+    })
+    db.session.add(out)
+
+    # guardar estado inicial de la saga
+    saga = SagaState(saga_id=saga_id, state='STARTED', data={'order_id': nuevo.id})
+    db.session.add(saga)
+
+    db.session.commit()
+    logger.info(f'[SAGA:{saga_id}] Pedido creado en estado pendiente y evento order.created encolado')
+
+    # ── 6. Responder con pedido + info del usuario ──
     resultado = nuevo.to_dict()
     resultado['usuario'] = usuario
+    resultado['saga_id'] = saga_id
     return jsonify(resultado), 201

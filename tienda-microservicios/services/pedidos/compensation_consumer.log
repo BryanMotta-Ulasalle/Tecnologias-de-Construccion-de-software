@@ -1,0 +1,84 @@
+[2026-05-11 16:27:21,371] INFO - Connecting to RabbitMQ for compensation consumer...
+[2026-05-11 16:27:21,429] ERROR - Error in compensation consumer: (406, "PRECONDITION_FAILED - inequivalent arg 'x-queue-type' for queue 'inventory.reserve_failed' in vhost '/': received none but current is the value 'quorum' of type 'longstr'")
+[2026-05-11 16:28:25,875] INFO - Connecting to RabbitMQ for compensation consumer...
+[2026-05-11 16:28:25,939] ERROR - Error in compensation consumer: (406, "PRECONDITION_FAILED - inequivalent arg 'x-queue-type' for queue 'inventory.reserve_failed' in vhost '/': received none but current is the value 'quorum' of type 'longstr'")
+[2026-05-11 16:28:43,312] INFO - Connecting to RabbitMQ for compensation consumer...
+[2026-05-11 16:28:43,377] INFO - Compensation consumer started. Listening for inventory.reserve_failed...
+[2026-05-11 16:28:43,377] INFO - [SAGA:4b4f1e18-af2a-4d51-93b3-d1cf5f71813d] Received inventory.reserve_failed for order None
+[2026-05-11 16:28:43,383] WARNING - [SAGA:4b4f1e18-af2a-4d51-93b3-d1cf5f71813d] Pedido None not found for compensation
+[2026-05-11 16:28:43,386] INFO - [SAGA:4b4f1e18-af2a-4d51-93b3-d1cf5f71813d] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:43,551] INFO - [SAGA:4b4f1e18-af2a-4d51-93b3-d1cf5f71813d] Published order.cancelled (compensation)
+[2026-05-11 16:28:43,552] INFO - [SAGA:d693586c-4679-4150-ae7a-9ca1aa0e7365] Received inventory.reserve_failed for order None
+[2026-05-11 16:28:43,554] WARNING - [SAGA:d693586c-4679-4150-ae7a-9ca1aa0e7365] Pedido None not found for compensation
+[2026-05-11 16:28:43,555] INFO - [SAGA:d693586c-4679-4150-ae7a-9ca1aa0e7365] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:43,667] INFO - [SAGA:d693586c-4679-4150-ae7a-9ca1aa0e7365] Published order.cancelled (compensation)
+[2026-05-11 16:28:43,667] INFO - [SAGA:b1ee2f22-b3db-4f4b-95cd-337b7c9c2a8b] Received inventory.reserve_failed for order 14
+[2026-05-11 16:28:43,671] INFO - [SAGA:b1ee2f22-b3db-4f4b-95cd-337b7c9c2a8b] COMPENSATION: Pedido 14 estado pendiente → cancelado
+[2026-05-11 16:28:43,674] INFO - [SAGA:b1ee2f22-b3db-4f4b-95cd-337b7c9c2a8b] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:43,783] INFO - [SAGA:b1ee2f22-b3db-4f4b-95cd-337b7c9c2a8b] Published order.cancelled (compensation)
+[2026-05-11 16:28:43,784] INFO - [SAGA:ee86b750-06f5-40ff-ab94-591c904f9f44] Received inventory.reserve_failed for order 15
+[2026-05-11 16:28:43,786] INFO - [SAGA:ee86b750-06f5-40ff-ab94-591c904f9f44] COMPENSATION: Pedido 15 estado pendiente → cancelado
+[2026-05-11 16:28:43,789] INFO - [SAGA:ee86b750-06f5-40ff-ab94-591c904f9f44] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:43,898] INFO - [SAGA:ee86b750-06f5-40ff-ab94-591c904f9f44] Published order.cancelled (compensation)
+[2026-05-11 16:28:43,899] INFO - [SAGA:797849f5-b974-4e8b-a4bc-01a8d7aedb80] Received inventory.reserve_failed for order 16
+[2026-05-11 16:28:43,901] INFO - [SAGA:797849f5-b974-4e8b-a4bc-01a8d7aedb80] COMPENSATION: Pedido 16 estado pendiente → cancelado
+[2026-05-11 16:28:43,903] INFO - [SAGA:797849f5-b974-4e8b-a4bc-01a8d7aedb80] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,010] INFO - [SAGA:797849f5-b974-4e8b-a4bc-01a8d7aedb80] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,011] INFO - [SAGA:8ec7c34e-87d4-4234-9571-9cc0b2e6fbc6] Received inventory.reserve_failed for order 17
+[2026-05-11 16:28:44,013] INFO - [SAGA:8ec7c34e-87d4-4234-9571-9cc0b2e6fbc6] COMPENSATION: Pedido 17 estado pendiente → cancelado
+[2026-05-11 16:28:44,016] INFO - [SAGA:8ec7c34e-87d4-4234-9571-9cc0b2e6fbc6] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,122] INFO - [SAGA:8ec7c34e-87d4-4234-9571-9cc0b2e6fbc6] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,123] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Received inventory.reserve_failed for order 18
+[2026-05-11 16:28:44,125] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] COMPENSATION: Pedido 18 estado pendiente → cancelado
+[2026-05-11 16:28:44,127] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,235] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,235] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Received inventory.reserve_failed for order 18
+[2026-05-11 16:28:44,238] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] COMPENSATION: Pedido 18 estado cancelado → cancelado
+[2026-05-11 16:28:44,239] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,350] INFO - [SAGA:d4129c8a-3c9c-41db-8762-38becbed6ded] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,351] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] Received inventory.reserve_failed for order 19
+[2026-05-11 16:28:44,353] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] COMPENSATION: Pedido 19 estado pendiente → cancelado
+[2026-05-11 16:28:44,356] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,466] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,467] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] Received inventory.reserve_failed for order 19
+[2026-05-11 16:28:44,469] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] COMPENSATION: Pedido 19 estado cancelado → cancelado
+[2026-05-11 16:28:44,471] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,592] INFO - [SAGA:5de197c6-8da4-49a3-bc38-35a5d1c1dae2] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,592] INFO - [SAGA:53d1f210-238f-4521-b6a2-df27415192db] Received inventory.reserve_failed for order 20
+[2026-05-11 16:28:44,595] INFO - [SAGA:53d1f210-238f-4521-b6a2-df27415192db] COMPENSATION: Pedido 20 estado pendiente → cancelado
+[2026-05-11 16:28:44,597] INFO - [SAGA:53d1f210-238f-4521-b6a2-df27415192db] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,710] INFO - [SAGA:53d1f210-238f-4521-b6a2-df27415192db] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,710] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] Received inventory.reserve_failed for order 21
+[2026-05-11 16:28:44,712] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] COMPENSATION: Pedido 21 estado pendiente → cancelado
+[2026-05-11 16:28:44,715] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,822] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] Published order.cancelled (compensation)
+[2026-05-11 16:28:44,823] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] Received inventory.reserve_failed for order 21
+[2026-05-11 16:28:44,825] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] COMPENSATION: Pedido 21 estado cancelado → cancelado
+[2026-05-11 16:28:44,827] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:28:44,934] INFO - [SAGA:3c223df7-1f32-4cb8-b8bc-a147b33a352d] Published order.cancelled (compensation)
+[2026-05-11 16:30:00,100] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Received inventory.reserve_failed for order 24
+[2026-05-11 16:30:00,102] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] COMPENSATION: Pedido 24 estado pendiente → cancelado
+[2026-05-11 16:30:00,105] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:30:00,219] INFO - [SAGA:98f86cab-29c4-4502-a8aa-fd9657c22e39] Published order.cancelled (compensation)
+[2026-05-11 16:35:33,768] INFO - Connecting to RabbitMQ for compensation consumer...
+[2026-05-11 16:35:33,830] INFO - Compensation consumer started. Listening for inventory.reserve_failed...
+[2026-05-11 16:39:03,526] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Received inventory.reserve_failed for order 26
+[2026-05-11 16:39:03,529] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] COMPENSATION: Pedido 26 estado pendiente → cancelado
+[2026-05-11 16:39:03,532] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:39:03,644] INFO - [SAGA:9914ed29-90c4-4c35-b369-e83d20970fac] Published order.cancelled (compensation)
+[2026-05-11 16:55:12,732] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Received inventory.reserve_failed for order 28
+[2026-05-11 16:55:12,741] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] COMPENSATION: Pedido 28 estado pendiente → cancelado
+[2026-05-11 16:55:12,747] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 16:55:12,859] INFO - [SAGA:729e3fdf-d17a-4181-9462-f3700aa0c8cb] Published order.cancelled (compensation)
+[2026-05-11 17:20:54,574] INFO - Compensation consumer shutting down...
+[2026-05-11 17:20:58,505] INFO - Connecting to RabbitMQ for compensation consumer...
+[2026-05-11 17:20:58,574] INFO - Compensation consumer started. Listening for inventory.reserve_failed...
+[2026-05-11 17:21:17,064] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Received inventory.reserve_failed for order 30
+[2026-05-11 17:21:17,077] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Received inventory.reserve_failed for order 30
+[2026-05-11 17:21:17,083] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] COMPENSATION: Pedido 30 estado pendiente → cancelado
+[2026-05-11 17:21:17,086] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] COMPENSATION: Pedido 30 estado pendiente → cancelado
+[2026-05-11 17:21:17,088] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 17:21:17,096] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Updated SagaState to COMPENSATION_STARTED
+[2026-05-11 17:21:17,211] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published order.cancelled (compensation)
+[2026-05-11 17:21:17,228] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published order.cancelled (compensation)
+[2026-05-11 17:21:17,327] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published inventory.release (compensation)

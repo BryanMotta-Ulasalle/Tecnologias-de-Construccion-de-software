@@ -34,36 +34,36 @@ import { getProducts, createProduct } from '../services/productServices'
 import useResource from '../../../shared/hooks/useResource'
 
 const useProduct = () => {
-                const {
-                        data: products,
-                        setData: setProducts,
-                        isLoading,
-                        error,
-                        refetch,
-                } = useResource({
-                        cacheKey: 'products',
-                        fetcher: getProducts,
-                        initialValue: [],
-                })
+        const {
+                data: products,
+                setData: setProducts,
+                isLoading,
+                error,
+                refetch,
+        } = useResource({
+                cacheKey: 'products',
+                fetcher: getProducts,
+                initialValue: [],
+        })
 
         const createNewProduct = useCallback(async (productData) => {
-                                const response = await createProduct(productData)
-                                setProducts((prevProducts) => [...prevProducts, response])
+                const response = await createProduct(productData)
+                setProducts((prevProducts) => [...prevProducts, response])
                 return response
-                }, [setProducts])
+        }, [setProducts])
 
-                const refreshProducts = useCallback(() => refetch(), [refetch])
+        const refreshProducts = useCallback(() => refetch(), [refetch])
 
-                const sortedProducts = useMemo(() => [...products], [products])
+        const sortedProducts = useMemo(() => [...products], [products])
 
 
-    return {
+        return {
                 products: sortedProducts,
                 createNewProduct,
                 isLoading,
                 error,
                 refreshProducts,
-    }
+        }
 }
 
 export default useProduct
