@@ -22,3 +22,22 @@
 [2026-05-11 17:17:01,285] INFO - [SAGA:432b70ab-d162-4eab-b0ff-fc08e1f913f3] Already released; skipping
 [2026-05-11 17:21:17,330] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Received inventory.release for order 30 with 1 items
 [2026-05-11 17:21:17,334] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] No reservation record found; skipping release
+[2026-05-11 19:24:57,036] INFO - Connecting to RabbitMQ for inventory release consumer...
+[2026-05-11 19:24:57,141] INFO - Inventory release consumer started. Listening for inventory.release...
+[2026-05-11 19:47:38,034] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Received inventory.release for order 4 with 1 items
+[2026-05-11 19:47:38,045] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] No reservation record found; proceeding using payload as fallback
+[2026-05-11 19:47:38,051] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Released stock for producto 2: 2 -> 3 (+1)
+[2026-05-11 19:47:38,061] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Inventory release committed for order 4
+[2026-05-11 19:48:36,393] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Received inventory.release for order 5 with 1 items
+[2026-05-11 19:48:36,397] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] No reservation record found; proceeding using payload as fallback
+[2026-05-11 19:48:36,399] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Released stock for producto 2: 3 -> 4 (+1)
+[2026-05-11 19:48:36,403] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Inventory release committed for order 5
+[2026-05-11 19:50:22,287] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Received inventory.release for order 7 with 1 items
+[2026-05-11 19:50:22,291] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] No reservation record found; proceeding using payload as fallback
+[2026-05-11 19:50:22,292] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Released stock for producto 2: 4 -> 5 (+1)
+[2026-05-11 19:50:22,295] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Inventory release committed for order 7
+[2026-05-11 20:05:15,008] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Received inventory.release for order 9 with 1 items
+[2026-05-11 20:05:15,012] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] No reservation record found; proceeding using payload as fallback
+[2026-05-11 20:05:15,014] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Released stock for producto 2: 5 -> 6 (+1)
+[2026-05-11 20:05:15,018] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Inventory release committed for order 9
+[2026-05-11 20:10:45,973] ERROR - Error in inventory release consumer: (320, "CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")

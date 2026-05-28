@@ -38,3 +38,710 @@
 [2026-05-11 17:21:16,811] INFO - Publishing 1 pending events...
 [2026-05-11 17:21:16,812] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Publishing order.created (id=24)
 [2026-05-11 17:21:16,935] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Successfully published and marked as sent
+[2026-05-11 19:47:37,290] INFO - ✅ Outbox publisher started
+[2026-05-11 19:47:37,300] INFO - Publishing 2 pending events...
+[2026-05-11 19:47:37,300] INFO - [SAGA:7389a113-e22e-470c-b00d-f188e5c4290c] Publishing order.created (id=1)
+[2026-05-11 19:47:37,431] INFO - [SAGA:7389a113-e22e-470c-b00d-f188e5c4290c] Successfully published and marked as sent
+[2026-05-11 19:47:37,435] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Publishing order.created (id=2)
+[2026-05-11 19:47:37,548] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Successfully published and marked as sent
+[2026-05-11 19:48:35,861] INFO - Publishing 1 pending events...
+[2026-05-11 19:48:35,861] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Publishing order.created (id=3)
+[2026-05-11 19:48:36,025] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Successfully published and marked as sent
+[2026-05-11 19:49:56,416] INFO - Publishing 1 pending events...
+[2026-05-11 19:49:56,417] INFO - [SAGA:64fe1203-1f49-4ebe-a791-8eef703465c3] Publishing order.created (id=4)
+[2026-05-11 19:49:56,586] INFO - [SAGA:64fe1203-1f49-4ebe-a791-8eef703465c3] Successfully published and marked as sent
+[2026-05-11 19:50:21,775] INFO - Publishing 1 pending events...
+[2026-05-11 19:50:21,776] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Publishing order.created (id=5)
+[2026-05-11 19:50:21,900] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Successfully published and marked as sent
+[2026-05-11 20:04:20,061] INFO - Publishing 1 pending events...
+[2026-05-11 20:04:20,062] INFO - [SAGA:757ddc5f-39cb-4de9-96e3-9c4dcc599bcd] Publishing order.created (id=6)
+[2026-05-11 20:04:20,215] INFO - [SAGA:757ddc5f-39cb-4de9-96e3-9c4dcc599bcd] Successfully published and marked as sent
+[2026-05-11 20:05:14,518] INFO - Publishing 1 pending events...
+[2026-05-11 20:05:14,518] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Publishing order.created (id=7)
+[2026-05-11 20:05:14,646] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Successfully published and marked as sent
+[2026-05-11 20:10:46,839] ERROR - Unexpected error in publisher loop: (psycopg2.OperationalError) could not receive data from server: Software caused connection abort (0x00002745/10053)
+
+[SQL: SELECT outbox.id AS outbox_id, outbox.saga_id AS outbox_saga_id, outbox.event_type AS outbox_event_type, outbox.payload AS outbox_payload, outbox.sent AS outbox_sent, outbox.created_at AS outbox_created_at 
+FROM outbox 
+WHERE outbox.sent = false ORDER BY outbox.created_at ASC 
+ LIMIT %(param_1)s]
+[parameters: {'param_1': 50}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not receive data from server: Software caused connection abort (0x00002745/10053)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not receive data from server: Software caused connection abort (0x00002745/10053)
+
+[SQL: SELECT outbox.id AS outbox_id, outbox.saga_id AS outbox_saga_id, outbox.event_type AS outbox_event_type, outbox.payload AS outbox_payload, outbox.sent AS outbox_sent, outbox.created_at AS outbox_created_at 
+FROM outbox 
+WHERE outbox.sent = false ORDER BY outbox.created_at ASC 
+ LIMIT %(param_1)s]
+[parameters: {'param_1': 50}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-05-11 20:10:47,858] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:48,876] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:49,892] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:50,905] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:51,919] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:52,933] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:53,948] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+[2026-05-11 20:10:54,970] ERROR - Unexpected error in publisher loop: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\outbox_publisher.py", line 41, in publish_pending
+    rows = Outbox.query.filter_by(sent=False).order_by(Outbox.created_at.asc()).limit(self.batch_size).all()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\pedidos\pedidos_env\Lib\site-packages\sqlalchemy\engine\base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)

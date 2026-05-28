@@ -74,3 +74,54 @@
 [2026-05-11 17:21:16,959] WARNING - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] RESERVE FAILED for order 30. Issues: [{'id': 9, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
 [2026-05-11 17:21:17,055] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published inventory.reserve_failed
 [2026-05-11 17:21:17,073] INFO - [SAGA:a950e1bd-1ede-4d88-84fc-4f3052730c23] Published inventory.reserve_failed
+[2026-05-11 19:24:20,320] INFO - Connecting to RabbitMQ...
+[2026-05-11 19:24:20,393] INFO - Declaring queue: order.created
+[2026-05-11 19:24:20,435] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 19:44:20,233] INFO - Connecting to RabbitMQ...
+[2026-05-11 19:44:20,299] INFO - Declaring queue: order.created
+[2026-05-11 19:44:20,306] INFO - ✅ Inventory consumer started, waiting for messages...
+[2026-05-11 19:47:37,414] INFO - [SAGA:7389a113-e22e-470c-b00d-f188e5c4290c] Processing order 3 with 1 items
+[2026-05-11 19:47:37,428] INFO - [SAGA:7389a113-e22e-470c-b00d-f188e5c4290c] Decremented stock for producto 1 (Smart TV LG 49'): 20 -> 19 (qty 1)
+[2026-05-11 19:47:37,443] INFO - [SAGA:7389a113-e22e-470c-b00d-f188e5c4290c] Stock reserved successfully for order 3
+[2026-05-11 19:47:37,606] INFO - [SAGA:7389a113-e22e-470c-b00d-f188e5c4290c] Published inventory.reserved
+[2026-05-11 19:47:37,608] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Processing order 4 with 1 items
+[2026-05-11 19:47:37,611] WARNING - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] FAILURE INJECTION TRIGGERED for product 2
+[2026-05-11 19:47:37,611] WARNING - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] RESERVE FAILED for order 4. Issues: [{'id': 2, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 19:47:37,740] INFO - [SAGA:47e9f020-6036-4850-b4ec-c68168068353] Published inventory.reserve_failed
+[2026-05-11 19:48:36,019] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Processing order 5 with 1 items
+[2026-05-11 19:48:36,022] WARNING - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] FAILURE INJECTION TRIGGERED for product 2
+[2026-05-11 19:48:36,022] WARNING - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] RESERVE FAILED for order 5. Issues: [{'id': 2, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 19:48:36,140] INFO - [SAGA:769e7d88-1841-4cec-b754-0ee5b2efd254] Published inventory.reserve_failed
+[2026-05-11 19:49:56,578] INFO - [SAGA:64fe1203-1f49-4ebe-a791-8eef703465c3] Processing order 6 with 1 items
+[2026-05-11 19:49:56,582] INFO - [SAGA:64fe1203-1f49-4ebe-a791-8eef703465c3] Decremented stock for producto 1 (Smart TV LG 49'): 19 -> 18 (qty 1)
+[2026-05-11 19:49:56,587] INFO - [SAGA:64fe1203-1f49-4ebe-a791-8eef703465c3] Stock reserved successfully for order 6
+[2026-05-11 19:49:56,728] INFO - [SAGA:64fe1203-1f49-4ebe-a791-8eef703465c3] Published inventory.reserved
+[2026-05-11 19:50:21,891] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Processing order 7 with 1 items
+[2026-05-11 19:50:21,895] WARNING - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] FAILURE INJECTION TRIGGERED for product 2
+[2026-05-11 19:50:21,896] WARNING - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] RESERVE FAILED for order 7. Issues: [{'id': 2, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 19:50:22,060] INFO - [SAGA:0e8a5d7b-1b35-4023-9d4e-4764d79f5bff] Published inventory.reserve_failed
+[2026-05-11 20:04:20,208] INFO - [SAGA:757ddc5f-39cb-4de9-96e3-9c4dcc599bcd] Processing order 8 with 1 items
+[2026-05-11 20:04:20,212] INFO - [SAGA:757ddc5f-39cb-4de9-96e3-9c4dcc599bcd] Decremented stock for producto 1 (Smart TV LG 49'): 18 -> 17 (qty 1)
+[2026-05-11 20:04:20,216] INFO - [SAGA:757ddc5f-39cb-4de9-96e3-9c4dcc599bcd] Stock reserved successfully for order 8
+[2026-05-11 20:04:20,331] INFO - [SAGA:757ddc5f-39cb-4de9-96e3-9c4dcc599bcd] Published inventory.reserved
+[2026-05-11 20:05:14,639] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Processing order 9 with 1 items
+[2026-05-11 20:05:14,643] WARNING - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] FAILURE INJECTION TRIGGERED for product 2
+[2026-05-11 20:05:14,643] WARNING - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] RESERVE FAILED for order 9. Issues: [{'id': 2, 'reason': 'testing_failure_injection', 'quantity_requested': 1}]
+[2026-05-11 20:05:14,757] INFO - [SAGA:daa2adc5-c499-4d12-ab57-395d790c0f79] Published inventory.reserve_failed
+[2026-05-11 20:10:45,972] ERROR - Consumer error: (320, "CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\productos\inventory_consumer.py", line 174, in run
+    channel.start_consuming()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\productos\prducts_env\Lib\site-packages\pika\adapters\blocking_connection.py", line 1979, in start_consuming
+    self._process_data_events(time_limit=None)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\productos\prducts_env\Lib\site-packages\pika\adapters\blocking_connection.py", line 2147, in _process_data_events
+    self.connection.process_data_events(time_limit=time_limit)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\productos\prducts_env\Lib\site-packages\pika\adapters\blocking_connection.py", line 897, in process_data_events
+    self._flush_output(common_terminator)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\Documents\Tecnologias de Construccion de software\tienda-microservicios\services\productos\prducts_env\Lib\site-packages\pika\adapters\blocking_connection.py", line 551, in _flush_output
+    raise self._closed_result.value.error
+pika.exceptions.ConnectionClosedByBroker: (320, "CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
