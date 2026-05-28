@@ -14,7 +14,7 @@ from .permissions import IsAdmin, IsAdminOrEmployee, IsCustomer, IsOwnerOrAdmin
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all().order_by('id')
     serializer_class = RoleSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsOwnerOrAdmin]
     
 class UserViewSet(mixins.ListModelMixin,
     mixins.RetrieveModelMixin,

@@ -1,9 +1,10 @@
 from rest_framework import serializers
+from decimal import Decimal
 
-from ECommerce.apps.products.models import Product
+from apps.products.models import Product
 
 from .models import Order, OrderItem, Payment, Cart, CartItem
-from products.serializers import ProductSerializer
+from apps.products.serializers import ProductSerializer
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,8 +39,16 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     items = CartItemSerializer(many=True, read_only=True)
+    total_price = serializers.SerializerMethodField()
+
+    def get_total_price(self, obj):
+        total = Decimal('0.00')
+        for item in obj.items.select_related('product').all():
+            product_price = item.product.price or Decimal('0.00')
+            total += Decimal(item.quantity) * product_price
+        return total
 
     class Meta:
         model = Cart
-        fields = ('id', 'user', 'items')
+        fields = ('id', 'user', 'items', 'total_price')
         read_only_fields = ('user',)
