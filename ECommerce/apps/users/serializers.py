@@ -92,17 +92,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         
     def create(self, validated_data):
+        password = validated_data.pop('password')
+        role = validated_data.pop('role', None)
+        if role is None:
+            try:
+                role = Role.objects.get(name='Customer')
+            except Role.DoesNotExist:
+                role = None
 
-        password = validated_data.pop(
-            'password'
-        )
-
-        user = User(
-            **validated_data
-        )
+        user = User(**validated_data)
+        if role:
+            user.role = role
 
         user.set_password(password)
-
         user.save()
-
         return user

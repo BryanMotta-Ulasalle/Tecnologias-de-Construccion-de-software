@@ -8,7 +8,7 @@ from .serializers import RegisterSerializer, UserSerializer, RoleSerializer
 from .models import User, Role
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from .permissions import IsAdmin, IsAdminOrEmployee, IsCustomer
+from .permissions import IsAdmin, IsAdminOrEmployee, IsCustomer, IsOwnerOrAdmin
 
     
 class RoleViewSet(viewsets.ModelViewSet):
@@ -21,8 +21,17 @@ class UserViewSet(mixins.ListModelMixin,
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet):
-    queryset = User.objects.select_related('role').order_by('id')
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+
+    def get_queryset(self):
+        qs = User.objects.select_related('role').order_by('id')
+        user = self.request.user
+        if user.is_authenticated and getattr(user, 'role', None) and user.role.name == 'Admin':
+            return qs
+        if user.is_authenticated:
+            return qs.filter(id=user.id)
+        return qs.none()
 
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def me(self, request):
