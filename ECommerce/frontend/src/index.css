@@ -1,4 +1,58 @@
-body { font-family: Arial, sans-serif; margin: 16px; }
-header { margin-bottom: 16px }
-section { margin-bottom: 24px; padding: 8px; border: 1px solid #eee }
-button { margin-top: 8px }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+	--color-sidebar: #11110f;
+	--color-navActive: #1a1815;
+	--color-navHover: #24211d;
+	--color-navHoverText: #e8e2d8;
+	--color-background: #f7f3ec;
+	--color-text1: #8b7f73;
+	--color-text2: #f4ede3;
+	--color-button: #e8b87e;
+	--color-tableBorder: #3a332d;
+	--color-iconBackground: #f0d4b3;
+	--color-icon: #11110f;
+	--color-buttonHover: #f1c998;
+}
+
+:root {
+	font-family: 'Inter', system-ui, sans-serif;
+	color: #11110f;
+	background: #f7f3ec;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	--font-display: 'DM Serif Display', Georgia, serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-width: 320px;
+	background:
+		radial-gradient(circle at top right, rgba(201, 140, 75, 0.18), transparent 24%),
+		linear-gradient(180deg, #faf7f1 0%, #f7f3ec 28%, #f4efe6 100%);
+}
+
+button,
+input {
+	font: inherit;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+#root {
+	min-height: 100vh;
+}
