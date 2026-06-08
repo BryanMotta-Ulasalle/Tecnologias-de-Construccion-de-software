@@ -1,14 +1,23 @@
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
+from apps.users.permissions import IsAdminOrEmployee, IsOwnerOrAdmin, IsCustomer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-	queryset = Category.objects.all().order_by('id')
-	serializer_class = CategorySerializer
+    queryset = Category.objects.all().order_by('id')
+    serializer_class = CategorySerializer
+    permission_classes = [AllowAny]
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.select_related('category').prefetch_related('product_images').order_by('id')
-	serializer_class = ProductSerializer
+    queryset = Product.objects.select_related('category').prefetch_related('product_images').order_by('id')
+    serializer_class = ProductSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        return [IsAdminOrEmployee()]
+ 

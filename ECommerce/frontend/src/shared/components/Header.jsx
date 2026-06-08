@@ -25,15 +25,14 @@ const Header = () => {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-black/5 bg-[#F7F3EC]/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 border-b border-black/5 bg-black backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-4 sm:px-6 lg:px-8 lg:flex lg:justify-between">
         <button className="flex items-center gap-3" onClick={() => goTo('landing')} type="button">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#11110F] text-[#E8B87E] shadow-lg shadow-black/10">
-            <Store className="h-5 w-5" />
+          <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-[#af7732] text-white shadow-lg shadow-black/10">
+            <Store className="h-6 w-6" />
           </div>
           <div className="text-left">
-            <p className="text-xs uppercase tracking-[0.35em] text-[#8B7F73]">ECommerce</p>
-            <p className="text-sm font-semibold text-[#11110F]">Atelier Commerce</p>
+            <p className="font-bold uppercase tracking-[0.35em] text-white">ECommerce</p>
           </div>
         </button>
 
@@ -42,7 +41,7 @@ const Header = () => {
             <button
               key={item.key}
               onClick={() => goTo(item.key)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeView === item.key ? 'bg-[#11110F] text-white' : 'text-[#5F564E] hover:bg-black/5 hover:text-[#11110F]'}`}
+              className={`px-4 py-2 text-xl font-bold transition text-slate-300 hover:text-white`}
               type="button"
             >
               {item.label}
@@ -70,10 +69,10 @@ const Header = () => {
           </button> */}
           <button
             onClick={() => goTo('auth')}
-            className="hidden rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[#11110F] transition hover:bg-black/5 lg:inline-flex"
+            className="hidden rounded-full px-4 py-2 text-white bg-[#b68448] lg:inline-flex"
             type="button"
           >
-            {session.signedIn ? 'Cuenta' : 'Sign in'}
+            {session.signedIn ? 'Cuenta' : 'Iniciar Sesion'}
           </button>
           {/* <div className="hidden rounded-full border border-black/10 bg-white/80 px-3 py-2 text-xs font-medium text-[#5F564E] lg:inline-flex">
             {session.signedIn ? session.role : 'Guest'}
@@ -106,13 +105,13 @@ const Header = () => {
               className="rounded-2xl bg-white/80 px-4 py-3 text-left text-sm font-medium shadow-sm shadow-black/5"
               type="button"
             >
-              {session.signedIn ? 'Cuenta' : 'Sign in'}
+              {session.signedIn ? 'Cuenta' : 'Iniciar Sesion'}
             </button>
           </div>
         </div>
       ) : null}
 
-      {searchOpen ? (
+      {/* {searchOpen ? (
         <div className="border-t border-black/5 bg-white/75 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm">
             <Search className="h-4 w-4 text-[#8B7F73]" />
@@ -126,7 +125,7 @@ const Header = () => {
             </button>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </header>
   )
 }

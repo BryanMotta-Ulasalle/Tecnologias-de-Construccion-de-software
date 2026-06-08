@@ -46,6 +46,13 @@ export function EcommerceStoreProvider({ children }) {
     setActiveView(pathToView(location.pathname))
   }, [location.pathname])
 
+  // Auto-load catalog on app start so features like Home can show products
+  useEffect(() => {
+    if (!catalog.hasCatalogLoaded) {
+      catalog.loadCatalog()
+    }
+  }, [catalog.hasCatalogLoaded, catalog.loadCatalog])
+
   const navigate = (view) => {
     catalog.setSelectedProductId(null)
     setActiveView(view)
