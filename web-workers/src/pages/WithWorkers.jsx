@@ -53,7 +53,7 @@ const WithWorkers = () => {
         </div>
       <div className="mb-10 w-300 backdrop-blur-sm border-4 rounded-xl bg-white/10 border-blue-400 mx-auto p-8 flex flex-col items-center gap-4">
         <H2 h2="Contador Automatico" />
-        <Contador />
+        <Contador version="cyan" shadow="cyan"/>
       </div>
 
       <div className="w-300 backdrop-blur-sm border-4 rounded-xl bg-white/10 border-blue-400 mx-auto p-8 flex flex-col items-center gap-4">

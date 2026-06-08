@@ -19,13 +19,13 @@ function App() {
         <div className="flex gap-10">
           <Link
             to="/with-workers"
-            className="text-2xl border border-cyan-400 px-8  py-4 rounded-xl bg-cyan-400 hover:bg-cyan-600 text-white transition-colors duration-300"
+            className="text-3xl border border-cyan-500 px-10  py-6 rounded-2xl bg-cyan-400 hover:bg-cyan-600 text-white transition-colors duration-300"
           >
             Prueba con Workers
           </Link>
           <Link
             to="/without-workers"
-            className="text-2xl border-3 border-purple-500 px-8  py-4 rounded-xl text-white bg-purple-500 hover:bg-purple-600 transition-colors duration-300"
+            className="text-3xl border-3 border-purple-600 px-10  py-6 rounded-2xl text-white bg-purple-500 hover:bg-purple-600 transition-colors duration-300"
           >
             Prueba sin Workers
           </Link>

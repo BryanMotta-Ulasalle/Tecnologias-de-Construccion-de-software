@@ -9,7 +9,7 @@ const Navbar = () => {
             <span>Inicio</span>
         </NavLink>
         <NavLink to="/with-workers" className={({ isActive }) => isActive ? " border-b-4 border-cyan-400 text-cyan-400 p-2" : " p-2 hover:text-blue-100"}>Prueba con Workers</NavLink>
-        <NavLink to="/without-workers" className={({ isActive }) => isActive ? " border-b-4 border-cyan-400 text-cyan-400 p-2" : " p-2 hover:text-blue-100"}>Prueba sin Workers</NavLink>
+        <NavLink to="/without-workers" className={({ isActive }) => isActive ? " border-b-4 border-purple-400 text-purple-400 p-2" : " p-2 hover:text-blue-100"}>Prueba sin Workers</NavLink>
     </nav>
   )
 }

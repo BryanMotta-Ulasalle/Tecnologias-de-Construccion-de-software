@@ -1,6 +1,10 @@
 
 
-const InputFile = ({ handleFileUpload, uploadFile }) => {
+const InputFile = ({ handleFileUpload, uploadFile, version }) => {
+  const versions = {
+    cyan:"bg-cyan-400",
+    purple: "bg-purple-500"
+  } 
   return (
     <input
         type="file"
@@ -9,7 +13,7 @@ const InputFile = ({ handleFileUpload, uploadFile }) => {
           handleFileUpload(e);
           uploadFile(true);
         }}
-        className="px-4 py-2 bg-cyan-400 text-white rounded hover:bg-cyan-600 transition-colors"
+        className={`px-4 py-2 ${versions[version] || 'bg-cyan-400'} text-white rounded hover:${versions[version] ? 'bg-purple-600' : 'bg-cyan-600'} transition-colors`}
       />
   )
 }

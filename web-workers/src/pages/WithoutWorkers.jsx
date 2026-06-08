@@ -40,23 +40,24 @@ const WithoutWorkers = () => {
             <p className="text-white text-xl">En esta prueba, el contador <span className="font-bold text-2xl">SI</span> se detendrá mientras se procesa el archivo CSV</p>
             <p className="text-white text-xl">El tiempo que se demora en procesar el archivo es de 5 segundos aproximadamente</p>
         </div>
-      <div className="mb-10 w-300 backdrop-blur-sm border-4 rounded-xl bg-white/10 border-blue-400 mx-auto p-8 flex flex-col items-center gap-4">
-        <H2 h2="Contador Automatico" />
-        <Contador />
+      <div className="mb-10 w-300 backdrop-blur-sm border-4 rounded-xl bg-white/10 border-purple-500 mx-auto p-8 flex flex-col items-center gap-4">
+        <H2 h2="Contador Automatico" version="purple" />
+        <Contador version="purple" shadow="purple"/>
       </div>
 
-      <div className="w-300 backdrop-blur-sm border-4 rounded-xl bg-white/10 border-blue-400 mx-auto p-8 flex flex-col items-center gap-4">
+      <div className="w-300 backdrop-blur-sm border-4 rounded-xl bg-white/10 border-purple-500 mx-auto p-8 flex flex-col items-center gap-4">
         {isUpload ? (
           <div>
-            <H2 h2="Tabla de Datos" />
+            <H2 h2="Tabla de Datos" version="purple" />
             <Table tableData={tableData} />
           </div>
         ) : (
           <div>
-            <H2 h2="Subir Archivo CSV" />
+            <H2 h2="Subir Archivo CSV" version="purple" />
             <InputFile
               handleFileUpload={handleFileUpload}
               uploadFile={setIsUpload}
+              version="purple"
             />
           </div>
         )}
