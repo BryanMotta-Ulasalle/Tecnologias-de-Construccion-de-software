@@ -1,0 +1,51 @@
+id,nombre,tipo,distancia_anos_luz
+1,Sol,Estrella,0
+2,Proxima Centauri,Estrella,4.24
+3,Sirio,Estrella,8.6
+4,Vega,Estrella,25
+5,Betelgeuse,Estrella,548
+6,Rigel,Estrella,860
+7,Polaris,Estrella,433
+8,Andromeda,Galaxia,2537000
+9,Via Lactea,Galaxia,0
+10,Triangulum,Galaxia,2730000
+11,Messier 87,Galaxia,53000000
+12,Sagitario A*,Agujero Negro,26000
+13,Tierra,Planeta,0
+14,Marte,Planeta,0.0000158
+15,Jupiter,Planeta,0.0000826
+16,Saturno,Planeta,0.000150
+17,Urano,Planeta,0.000304
+18,Neptuno,Planeta,0.000476
+19,Mercurio,Planeta,0.0000063
+20,Venus,Planeta,0.0000114
+21,Luna,Satelite,0.0000000406
+22,Europa,Satelite,0.0000826
+23,Titan,Satelite,0.000150
+24,Ganimedes,Satelite,0.0000826
+25,Callisto,Satelite,0.0000826
+26,Ceres,Planeta Enano,0.000278
+27,Pluton,Planeta Enano,0.000628
+28,Eris,Planeta Enano,0.00152
+29,Haumea,Planeta Enano,0.00114
+30,Makemake,Planeta Enano,0.00130
+31,Cometa Halley,Cometa,0.000028
+32,NGC 1300,Galaxia,61000000
+33,NGC 6744,Galaxia,30000000
+34,Whirlpool,Galaxia,23000000
+35,Sombrero,Galaxia,29000000
+36,Carina Nebula,Nebulosa,7500
+37,Orion Nebula,Nebulosa,1344
+38,Crab Nebula,Nebulosa,6500
+39,Eagle Nebula,Nebulosa,7000
+40,Ring Nebula,Nebulosa,2570
+41,Pillars of Creation,Estructura,7000
+42,Alpha Centauri A,Estrella,4.37
+43,Alpha Centauri B,Estrella,4.37
+44,Barnards Star,Estrella,5.96
+45,Wolf 359,Estrella,7.86
+46,Luyten 726-8 A,Estrella,8.73
+47,Ross 154,Estrella,9.69
+48,Kepler-186f,Exoplaneta,492
+49,TRAPPIST-1e,Exoplaneta,39.6
+50,TON 618,Cuasar,10400000000
