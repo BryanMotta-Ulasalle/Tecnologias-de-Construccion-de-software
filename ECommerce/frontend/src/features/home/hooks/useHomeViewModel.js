@@ -5,9 +5,8 @@ export function useHomeViewModel({ products, categories, session }) {
     () => [
       { value: `${products.length}`, label: 'products' },
       { value: `${categories.length}`, label: 'categories' },
-      { value: session.signedIn ? 'online' : 'guest', label: 'session' },
     ],
-    [categories.length, products.length, session.signedIn],
+    [categories.length, products.length],
   )
 
   const categorySummary = useMemo(

@@ -28,7 +28,7 @@ const AppRouter = () => {
         <Route path="/usuarios" element={<Auth />} />
       </Route>
 
-      <Route element={<AdminLayout />}>
+      <Route element={<RequireAuth requireAdmin><AdminLayout /></RequireAuth>}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/productos" element={<AdminProducts />} />
         <Route path="/dashboard/pedidos" element={<AdminOrders />} />
