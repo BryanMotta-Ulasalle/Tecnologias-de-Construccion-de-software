@@ -1,6 +1,7 @@
-import ProductCard from "../ProductCard"
+// STAFF COMPONENT 
+import ProductCard from "../shared/ProductCard0"
 
-const ProductGrid = ({products, onAddToCart}) => {
+const ProductGrid = ({products}) => {
 
     if (products.length === 0){
         return <p>No hay productos disponibles</p>    
@@ -16,7 +17,11 @@ const ProductGrid = ({products, onAddToCart}) => {
             imageUrl={product.imageUrl}
             category={product.category.name}
             price={product.price}
-            onAddToCart={onAddToCart}
+            actions={
+                <>
+                
+                </>
+            }
             />
         )) }
     </div>
