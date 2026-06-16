@@ -1,0 +1,59 @@
+{
+  "data": {
+    "objects": [
+      {
+        "names": {
+          "common": "Abkhazia",
+          "native": {
+            "abk": {
+              "common": "Аҧсны",
+              "official": "Аҧсны Аҳәынҭқарра"
+            },
+            "rus": {
+              "common": "Абхазия",
+              "official": "Республика Абхазия"
+            }
+          }
+        },
+        "languages": [
+          {
+            "bcp47": "ab",
+            "iso639_1": "ab",
+            "iso639_2b": "abk",
+            "iso639_2t": "abk",
+            "iso639_3": "abk",
+            "name": "Abkhaz",
+            "native_name": "Аҧсуа бызшәа"
+          },
+          {
+            "bcp47": "ru",
+            "iso639_1": "ru",
+            "iso639_2b": "rus",
+            "iso639_2t": "rus",
+            "iso639_3": "rus",
+            "name": "Russian",
+            "native_name": "русский"
+          }
+        ],
+        "_match": [
+          {
+            "path": "names.common",
+            "value": "Abkhazia"
+          }
+        ],
+        "_meta": {
+          "lastUpdatedTimestamp": 1781382415
+        }
+      }
+    ],
+    "meta": {
+      "total": 1,
+      "count": 1,
+      "limit": 25,
+      "offset": 0,
+      "more": false,
+      "request_id": "96930913-7958-4ea7-add1-df4cdb70cac8",
+      "duration": 1
+    }
+  }
+}
