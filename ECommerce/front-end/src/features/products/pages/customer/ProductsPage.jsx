@@ -1,5 +1,5 @@
 import useProducts from "../../hooks/useProducts"
-import ProductGrid from "../../components/shared/customer/ProductGrid"
+import ProductGrid from "../../components/customer/ProductGrid"
 
 
 const ProductsPage = () => {

@@ -1,13 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import ProductsCustomers from "../features/products/pages/customer/ProductsPage"
-
-import React from 'react'
+import Inicio from "../features/Home/page/HomePage"
 
 const AppRouter = () => {
   return (
     <Routes>
-        <Route path="/" element={<p>Inicio</p>}/>
-        <Route path="/catalogo/productos" element={<ProductsCustomers/>}/>
+        <Route path="/" element={<Inicio/>}/>
+        <Route path="/tienda/productos" element={<ProductsCustomers/>}/>
     </Routes>
   )
 }

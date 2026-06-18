@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom'
+import Button from '../../../../components/Button'
 
 const ProductCard = ({id,imageUrl ,category, name, price, onAddToCart,actions}) => {
   return (
@@ -12,7 +13,7 @@ const ProductCard = ({id,imageUrl ,category, name, price, onAddToCart,actions}) 
             <div>
                 <span>{price}</span>
                 {onAddToCart && (
-                    <button onClick={()=> onAddToCart(id)} >Agregar</button>
+                    <Button children="Agregar" />
                 )}
 
                 {actions}

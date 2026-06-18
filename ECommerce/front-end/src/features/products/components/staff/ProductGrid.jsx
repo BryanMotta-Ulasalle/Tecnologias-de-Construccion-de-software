@@ -1,5 +1,6 @@
 // STAFF COMPONENT 
 import ProductCard from "../shared/ProductCard0"
+import Button from "../../../../components/Button"
 
 const ProductGrid = ({products}) => {
 
@@ -19,7 +20,8 @@ const ProductGrid = ({products}) => {
             price={product.price}
             actions={
                 <>
-                
+                <Button children="Editar"/>
+                <Button children="Eliminar"/>
                 </>
             }
             />
