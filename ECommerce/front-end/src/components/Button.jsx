@@ -8,7 +8,7 @@ const Button = ({children, color, size, onClick, type='button', className}) => {
 
     }
   return (
-    <button className={`${colors[color]} ${sizes[size]} ${className}`}
+    <button className={`text-center cursor-pointer ${colors[color]} ${sizes[size]} ${className}`}
     onClick={onClick} type={type}>
         {children}
     </button>

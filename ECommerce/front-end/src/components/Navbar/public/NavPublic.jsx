@@ -4,9 +4,9 @@ const NavPublic = ({ children, to, isMobile }) => {
 
   const styles = {
     mobile: {
-      base: 'block w-full rounded-lg px-4 py-3',
-      active: 'bg-slate-700 text-white',
-      inactive: 'text-slate-300'
+      base: 'block w-full px-4 py-3',
+      active: 'border-l-4 border-orange-200 bg-orange-200/20 text-orange-200',
+      inactive: 'text-white hover:bg-white/10'
     },
     desktop: {
       base: 'inline-flex items-center px-4 py-2',

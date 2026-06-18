@@ -11,7 +11,7 @@ export default function Hero({ heroProduct, onNavigate }) {
             <div className="flex flex-col justify-center">
                 <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#11110F]/10 bg-gray-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-slate-300">
                     <Sparkles className="h-3.5 w-3.5 text-[#C98C4B]" />
-                    New interface for your store
+                    Nueva experiencia para ustedes
                 </div>
                 <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-7xl">
                     A cleaner storefront for your
