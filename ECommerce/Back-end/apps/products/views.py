@@ -4,10 +4,13 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from apps.users.permissions import IsAdminOrEmployee, IsOwnerOrAdmin, IsCustomer
+from django.db.models import Count
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all().order_by('id')
+    queryset = Category.objects.annotate(
+        total_products=Count('products')
+        ).order_by('id')
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
 

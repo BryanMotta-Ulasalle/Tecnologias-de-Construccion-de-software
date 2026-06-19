@@ -7,7 +7,7 @@ const H2 = ({children, color}) => {
     }
 
   return (
-    <h2 className={`${colors[color]}`}
+    <h2 className={`text-3xl font-display lg:text-4xl ${colors[color]}`}
     >{children}</h2>
   )
 }
