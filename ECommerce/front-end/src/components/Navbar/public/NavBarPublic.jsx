@@ -1,7 +1,7 @@
 import NavPublic from "./NavPublic"
 import {PUBLIC_NAV_LINKS} from "../../../constants/navigation"
 
-const NavBarPublic = ({isMobile}) => {
+const NavBarPublic = ({isMobile, isHome}) => {
   return (
     <nav className={
       isMobile
@@ -10,7 +10,7 @@ const NavBarPublic = ({isMobile}) => {
     }>
         {
             PUBLIC_NAV_LINKS.map((link)=>(
-                <NavPublic key={link.path} children={link.label} to={link.path} isMobile={isMobile}/>
+                <NavPublic key={link.path} isHome={isHome} children={link.label} to={link.path} isMobile={isMobile}/>
             ))
         }
     </nav>

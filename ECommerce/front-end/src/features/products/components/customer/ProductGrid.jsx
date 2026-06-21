@@ -7,7 +7,7 @@ const ProductGrid = ({products, onAddToCart}) => {
     }
 
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-5 px-5 py-10 items-center lg:flex flex-row lg:gap-10">
         {products.map((product)=>(
             <ProductCard
             key={product.id}

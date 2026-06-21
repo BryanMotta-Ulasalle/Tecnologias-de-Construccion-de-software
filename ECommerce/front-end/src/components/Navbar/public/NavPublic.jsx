@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-const NavPublic = ({ children, to, isMobile }) => {
+const NavPublic = ({ children, to, isMobile, isHome }) => {
 
   const styles = {
     mobile: {
@@ -9,14 +9,21 @@ const NavPublic = ({ children, to, isMobile }) => {
       inactive: 'text-white hover:bg-white/10'
     },
     desktop: {
+      isHome:{
+        base: 'inline-flex items-center px-4 py-2',
+        active: 'border-b-2 border-white text-white',
+       inactive: 'text-textGray hover:text-white'
+      },
+      noHome:{
       base: 'inline-flex items-center px-4 py-2',
-      active: 'border-b-2 border-white text-white',
-      inactive: 'text-textGray hover:text-white'
+      active: 'border-b-2 border-black ',
+      inactive: 'text-textGray hover:text-black/50'
+      }
     }
   };
   const currentStyles = isMobile
     ? styles.mobile
-    : styles.desktop;
+    : isHome? styles.desktop.isHome: styles.desktop.noHome;
 
   return (
     <NavLink to={to} className={({ isActive }) => `${currentStyles.base} ${isActive

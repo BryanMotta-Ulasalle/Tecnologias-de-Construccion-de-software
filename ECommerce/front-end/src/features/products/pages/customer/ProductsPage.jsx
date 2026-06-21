@@ -1,5 +1,6 @@
 import useProducts from "../../hooks/useProducts"
 import ProductGrid from "../../components/customer/ProductGrid"
+import HeaderPublic from "../../../../components/Navbar/public/HeaderPublic"
 
 
 const ProductsPage = () => {
@@ -12,8 +13,8 @@ const ProductsPage = () => {
     if (error) return <p>{error}</p>
 
   return (
-    <main>
-        <h1>Catalogo</h1>
+    <main className="bg-bgLight">
+        
         <ProductGrid products={products} onAddToCart={handleAddToCart}/>
     </main>    
   )

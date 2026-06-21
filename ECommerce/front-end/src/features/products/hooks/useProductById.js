@@ -1,25 +1,26 @@
 import {useState, useEffect} from "react"
-import { fetchProducts, fetchProductById } from "../api/productsApi"
+import {  fetchProductById } from "../api/productsApi"
 
 
-const useProducts = () => {
+const useProductById = (id) => {
 
-    const [products, setProducts] = useState([])
+    const [product, setProduct] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(()=>{
-
+        console.log("ID recibido:", id);
+        if (!id) return;
         let isMounted = true
 
-        const loadProducts = async () =>{
+        const loadProduct = async () =>{
             try {
                 setIsLoading(true)
                 setError(null)
 
-                const data = await fetchProducts()
+                const data = await fetchProductById(id)
 
-                if (isMounted) setProducts(data)
+                if (isMounted) setProduct(data)
             } catch (error) {
                 if (isMounted) setError(error.message)
             } finally {
@@ -27,15 +28,15 @@ const useProducts = () => {
             }
         };
 
-        loadProducts();
+        loadProduct();
 
         return ()=> {isMounted = false}
 
-    },[])
+    },[id])
 
   return {
-    products, isLoading, error
+    product, isLoading, error
   }
 }
 
-export default useProducts
+export default useProductById
