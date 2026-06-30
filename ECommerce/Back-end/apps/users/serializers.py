@@ -60,6 +60,35 @@ class UserSerializer(serializers.ModelSerializer):
 
         return instance
 
+
+class MeUpdateSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'name',
+            'email',
+            'is_active',
+            'created_at',
+            'updated_at',
+            'role',
+        )
+        read_only_fields = (
+            'id',
+            'is_active',
+            'created_at',
+            'updated_at',
+            'role',
+        )
+
+    def validate_email(self, value):
+        user = self.instance
+        if User.objects.exclude(id=user.id).filter(email=value).exists():
+            raise serializers.ValidationError('El email ya esta registrado')
+        return value
+
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True,

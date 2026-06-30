@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import FormLogin from "../components/FormLogin"
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
+import image from "../../../assets/login-photo.webp"
 
 
 const Login = () => {
@@ -30,8 +31,9 @@ const Login = () => {
 
   return (
     <section className='w-dvw h-dvh flex flex-row'>
-      <div className='flex-1 bg-gray-400'>
-
+      <div className='flex-1 bg-gray-400 relative'>
+          <div className="absolute w-full h-full bg-black/50"></div>
+          <img className="object-cover w-full h-full " src={image} alt="imageLogin" />
       </div>
       <div className='flex-1 bg-bgLight flex justify-center items-center'>
         <FormLogin email={email} password={password} emailOnChange={(e) => setEmail(e.target.value)} passOnChange={(e) => setPassword(e.target.value)} onSubmit={handleSubmit} isLoading={isLoading} error={error} />

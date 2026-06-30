@@ -1,10 +1,10 @@
 // STAFF PAGE
-import AvisoConstruccion from "../../../../components/AvisoConstruccion"
+
 
 const ProductsPage = () => {
   return (
     <div>
-      <AvisoConstruccion/>
+      produtos page admin
     </div>
   )
 }

@@ -34,12 +34,15 @@ const HeaderPublic = () => {
             }
         `}  >
             <div className="lg:max-w-360 w-full m-auto flex h-15 lg:px-10 justify-between px-5">
-                <Logo />
+                <Logo isHome={isHome}/>
                 <NavBarPublic isHome={isHome} />
                 <div className="flex items-center">
                     {
                         !isAuthenticated ? (
-                            <ButtonLink to="/login" color="golden" size="md">Iniciar Sesion</ButtonLink>
+                            <>
+                            {isHome? <ButtonLink to="/login" color="golden" size="md">Iniciar Sesion</ButtonLink> 
+                            : <ButtonLink to="/login" color="bgBlack" size="md">Iniciar Sesion</ButtonLink>}
+                            </>
                         ) : (
                             <>
                             <button onClick={() => setIsAccountOpen((current)=> !current)}

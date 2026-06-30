@@ -3,7 +3,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import APIView, action
 from rest_framework.response import Response
-from .serializers import RegisterSerializer, UserSerializer, RoleSerializer
+from .serializers import RegisterSerializer, UserSerializer, RoleSerializer, MeUpdateSerializer
 from .models import User, Role
 from rest_framework.permissions import AllowAny
 from rest_framework import status
@@ -32,10 +32,21 @@ class UserViewSet(mixins.ListModelMixin,
             return qs.filter(id=user.id)
         return qs.none()
 
-    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=['get', 'put', 'patch'], permission_classes=[IsAuthenticated])
     def me(self, request):
-        serializer = self.get_serializer(request.user)
-        return Response(serializer.data)
+        if request.method == 'GET':
+            serializer = self.get_serializer(request.user)
+            return Response(serializer.data)
+
+        serializer = MeUpdateSerializer(
+            request.user,
+            data=request.data,
+            partial=request.method == 'PATCH'
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        response_serializer = self.get_serializer(request.user)
+        return Response(response_serializer.data)
     
 class RegisterView(APIView):
     permission_classes = [AllowAny]

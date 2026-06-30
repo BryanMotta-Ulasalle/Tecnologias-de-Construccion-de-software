@@ -13,7 +13,7 @@ const AccountList = ({ name, email, role, handleLogout, isAdmin }) => {
             <div className='border-y-1 border-textGray flex flex-col gap-3 py-3'>
                 {
                     isAdmin && (
-                        <Link to="/admin">Dashboard</Link>
+                        <Link to="/admin/dashboard">Dashboard</Link>
                     )
                 }
                 <Link>Mis Ordenes</Link>

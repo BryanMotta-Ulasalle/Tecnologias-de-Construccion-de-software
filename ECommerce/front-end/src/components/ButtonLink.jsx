@@ -13,11 +13,13 @@ const ButtonLink = ({children, to,variant,size,color, className}) => {
     const colors = {
         golden: "bg-golden text-white hover:bg-goldenHover",
         black: "font-bold hover:text-goldenHover",
-        gray: "text-pGray hover:text-black"
+        gray: "text-pGray hover:text-black",
+        bgBlack: "bg-black text-white font-medium hover:bg-goldenHover"
+        
     }
 
   return (
-    <Link to={to} className={`text-center cursor-pointer w-fit rounded-lg items-center ${variants[variant]} ${sizes[size]} ${colors[color]} ${className}`}>
+    <Link to={to} className={`text-center cursor-pointer w-fit rounded-xl items-center ${variants[variant]} ${sizes[size]} ${colors[color]} ${className}`}>
     {children}
     </Link>
   )
