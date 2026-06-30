@@ -11,6 +11,6 @@ export const register = async (credentials) => {
 }
 
 export const getMe = async () => {
-    const {data} = await apiClient.get("/users/me/")
+    const {data} = await apiClient.get("/users/me/", { withAuth: true })
     return data
 }

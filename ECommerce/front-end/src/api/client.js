@@ -7,11 +7,20 @@ const apiClient = axios.create({
     }
 })
 
- apiClient.interceptors.request.use(config => {
-    const token = localStorage.getItem('access');
-    if(token){
-        config.headers.Authorization = `Bearer ${token}`;
+apiClient.interceptors.request.use(config => {
+    if (!config.withAuth) {
+        delete config.headers.Authorization;
+        return config;
     }
+
+    const token = localStorage.getItem('access');
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    } else {
+        delete config.headers.Authorization;
+    }
+
     return config;
 })
 /*
