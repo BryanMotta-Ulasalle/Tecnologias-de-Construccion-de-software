@@ -1,11 +1,11 @@
 import imageHero from "../utils/image-hero.jpg";
-import { ArrowRight, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Sparkles} from "lucide-react";
 import { PUBLIC_HERO_CONTENT } from "../../../constants/hero"
 import Button from "../../../components/Button";
 
 const Hero = () => {
 
-  
+
 
   return (
     <section>
