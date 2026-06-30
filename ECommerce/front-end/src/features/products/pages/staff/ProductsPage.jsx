@@ -1,8 +1,11 @@
 // STAFF PAGE
+import AvisoConstruccion from "../../../../components/AvisoConstruccion"
 
 const ProductsPage = () => {
   return (
-    <div>ProductsPage</div>
+    <div>
+      <AvisoConstruccion/>
+    </div>
   )
 }
 

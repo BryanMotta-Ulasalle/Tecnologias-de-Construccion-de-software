@@ -4,6 +4,9 @@ import { PUBLIC_HERO_CONTENT } from "../../../constants/hero"
 import Button from "../../../components/Button";
 
 const Hero = () => {
+
+  
+
   return (
     <section>
       <div

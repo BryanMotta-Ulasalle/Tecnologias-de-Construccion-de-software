@@ -3,12 +3,11 @@ from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import APIView, action
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
 from .serializers import RegisterSerializer, UserSerializer, RoleSerializer
 from .models import User, Role
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from .permissions import IsAdmin, IsAdminOrEmployee, IsCustomer, IsOwnerOrAdmin
+from .permissions import  IsOwnerOrAdmin
 
     
 class RoleViewSet(viewsets.ModelViewSet):

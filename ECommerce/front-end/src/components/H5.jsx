@@ -1,8 +1,8 @@
-import React from 'react'
+
 
 const H5 = ({children}) => {
   return (
-    <h5 className='font-medium'>{children}</h5>
+    <h5 className='text-lg font-medium'>{children}</h5>
   )
 }
 
