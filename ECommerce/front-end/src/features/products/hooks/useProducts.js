@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import { fetchProducts, fetchProductById } from "../api/productsApi"
+import { fetchProducts} from "../api/productsApi"
 
 
 const useProducts = () => {

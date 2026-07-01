@@ -1,6 +1,6 @@
 import ProductCard from "../shared/ProductCard"
 
-const ProductGrid = ({products, onAddToCart}) => {
+const ProductGrid = ({products, onAddToCart,to}) => {
 
     if (products.length === 0){
         return <p>No hay productos disponibles</p>    
@@ -17,6 +17,7 @@ const ProductGrid = ({products, onAddToCart}) => {
             category={product.category.name}
             price={product.price}
             onAddToCart={onAddToCart}
+            
             />
         )) }
     </div>
