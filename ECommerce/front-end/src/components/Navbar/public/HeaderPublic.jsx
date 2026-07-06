@@ -1,72 +1,106 @@
-import NavBarPublic from "./NavBarPublic"
-import Button from "../../Button"
-import { useState } from "react"
-import MenuMobile from "./MenuMobile"
-import Logo from "./Logo"
-import { Menu } from 'lucide-react';
-import { useLocation, useNavigate } from "react-router-dom"
-import ButtonLink from "../../ButtonLink"
-import useAuth from './../../../hooks/useAuth';
-import AccountList from "../private/AccountList"
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Menu, ShoppingBag } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useCart from "../../../features/orders/hooks/useCart";
+import useAuth from "../../../hooks/useAuth";
+import Button from "../../Button";
+import ButtonLink from "../../ButtonLink";
+import AccountList from "../private/AccountList";
+import Logo from "./Logo";
+import MenuMobile from "./MenuMobile";
+import NavBarPublic from "./NavBarPublic";
 
 const HeaderPublic = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const isHome = location.pathname === "/";
+  const { isAuthenticated, isAdmin, logout, user } = useAuth();
+  const { itemCount } = useCart();
 
-    const location = useLocation()
-    const navigate = useNavigate()
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
-    const [isMobileOpen, setIsMobileOpen] = useState(false)
-    const [isAccountOpen, setIsAccountOpen] = useState(false)
+  const foregroundClass = isHome ? "text-white" : "text-stone-900";
 
-    const isHome = location.pathname === "/";
+  return (
+    <header
+      className={`fixed z-100 h-15 w-full ${
+        isHome
+          ? "border-b border-white/30 bg-black/50 backdrop-blur-xl"
+          : "border-b border-stone-200 bg-white"
+      }`}
+    >
+      <div className="mx-auto flex h-15 w-full items-center justify-between px-5 lg:max-w-360 lg:px-10">
+        <Logo isHome={isHome} />
+        <NavBarPublic isHome={isHome} />
 
-    const { isAuthenticated, isAdmin, logout, user } = useAuth()
+        <div className="ml-auto flex items-center gap-3 lg:ml-0">
+          <Link
+            to="/carrito"
+            className={`relative rounded-xl p-2 hover:bg-golden/10 ${foregroundClass}`}
+            aria-label={`Carrito con ${itemCount} productos`}
+          >
+            <ShoppingBag className="h-5 w-5" />
+            {itemCount > 0 && (
+              <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-golden px-1 text-center text-xs font-bold text-white">
+                {itemCount}
+              </span>
+            )}
+          </Link>
 
-    const handleLogout = () => {
-        logout()
-        navigate("/login")
-    }
-
-    return (
-        <header className={`z-100 fixed w-full 
-             ${isHome ? "backdrop-blur-xl bg-black/50 h-15  border-b border-white/30"
-                : "bg-white"
-            }
-        `}  >
-            <div className="lg:max-w-360 w-full m-auto flex h-15 lg:px-10 justify-between px-5">
-                <Logo isHome={isHome}/>
-                <NavBarPublic isHome={isHome} />
-                <div className="flex items-center">
-                    {
-                        !isAuthenticated ? (
-                            <>
-                            {isHome? <ButtonLink to="/login" color="golden" size="md">Iniciar Sesion</ButtonLink> 
-                            : <ButtonLink to="/login" color="bgBlack" size="md">Iniciar Sesion</ButtonLink>}
-                            </>
-                        ) : (
-                            <>
-                            <button onClick={() => setIsAccountOpen((current)=> !current)}
-                                className={`flex flex-row items-center gap-2 ${isHome ? "text-white bg-golden px-4 py-2 rounded-lg" : ""}`}
-                                >  {user?.name.split(" ")[0]} <ChevronDown className="w-4 h-4"/></button>
-                            {
-                                isAccountOpen
-                                ?  <AccountList name={user?.name} email={user?.email} role={user?.role?.name} handleLogout={handleLogout} isAdmin={isAdmin}/>
-                                : null
-                            }
-                            </>
-                        )
-                    }
-                </div>
-                <Button children={<Menu />} color={isHome ? "white" : ""} onClick={() => setIsMobileOpen((current) => !current)} className="lg:hidden" />
-                {isMobileOpen ? (
-                    <div>
-                        <MenuMobile setIsMobileOpen={setIsMobileOpen} />
-
-                    </div>
-                ) : null}
+          {!isAuthenticated ? (
+            <ButtonLink
+              to="/login"
+              color={isHome ? "golden" : "bgBlack"}
+              size="md"
+              className="hidden sm:block"
+            >
+              Iniciar Sesion
+            </ButtonLink>
+          ) : (
+            <div className="relative hidden sm:block">
+              <button
+                type="button"
+                onClick={() => setIsAccountOpen((current) => !current)}
+                className={`flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 ${
+                  isHome ? "bg-golden text-white" : "text-stone-900"
+                }`}
+              >
+                {user?.name?.split(" ")[0] || "Cuenta"}
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {isAccountOpen && (
+                <AccountList
+                  name={user?.name}
+                  email={user?.email}
+                  role={user?.role?.name}
+                  handleLogout={handleLogout}
+                  isAdmin={isAdmin}
+                />
+              )}
             </div>
-        </header>
-    )
-}
+          )}
+        </div>
 
-export default HeaderPublic
+        <Button
+          color={isHome ? "white" : ""}
+          onClick={() => setIsMobileOpen((current) => !current)}
+          className="lg:hidden"
+          aria-label="Abrir menu"
+        >
+          <Menu />
+        </Button>
+
+        {isMobileOpen && (
+          <MenuMobile setIsMobileOpen={setIsMobileOpen} />
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default HeaderPublic;

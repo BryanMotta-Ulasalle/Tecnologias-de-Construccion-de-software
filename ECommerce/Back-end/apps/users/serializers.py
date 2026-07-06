@@ -96,11 +96,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         min_length=8
     )
     
-    role_id = serializers.PrimaryKeyRelatedField(
-    queryset=Role.objects.all(),
-    source='role',
-    write_only=True
-)
     email = serializers.EmailField(
     validators=[
         UniqueValidator(
@@ -117,22 +112,19 @@ class RegisterSerializer(serializers.ModelSerializer):
             'name',
             'email',
             'password',
-            'role_id',
         )
         
     def create(self, validated_data):
         password = validated_data.pop('password')
-        role = validated_data.pop('role', None)
-        if role is None:
-            try:
-                role = Role.objects.get(name='Customer')
-            except Role.DoesNotExist:
-                role = None
+        try:
+            customer_role = Role.objects.get(name='Customer')
+        except Role.DoesNotExist:
+            raise serializers.ValidationError(
+                {'role': 'El rol Customer no esta configurado.'}
+            )
 
-        user = User(**validated_data)
-        if role:
-            user.role = role
-
-        user.set_password(password)
-        user.save()
-        return user
+        return User.objects.create_user(
+            password=password,
+            role=customer_role,
+            **validated_data,
+        )

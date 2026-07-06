@@ -2,10 +2,11 @@ import imageHero from "../utils/image-hero.jpg";
 import { ArrowRight, Sparkles} from "lucide-react";
 import { PUBLIC_HERO_CONTENT } from "../../../constants/hero"
 import Button from "../../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
 
-
+  const navigate = useNavigate();
 
   return (
     <section>
@@ -27,10 +28,10 @@ const Hero = () => {
             {PUBLIC_HERO_CONTENT.parrafo}
           </p>
           <div className="flex flex-row gap-3 ">
-            <Button color="golden" variant="normal" className="flex flex-row items-center gap-2" >
+            <Button color="golden" variant="normal" className="flex flex-row items-center gap-2" onClick={() => navigate("/tienda/productos")}>
               Ver el catalogo <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button color="darkgray" variant="normal">
+            <Button color="darkgray" variant="normal" onClick={() => navigate("/login")}>
               Iniciar Sesion
             </Button>
           </div>

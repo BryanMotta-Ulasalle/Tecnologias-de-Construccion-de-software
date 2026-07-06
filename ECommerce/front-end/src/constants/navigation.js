@@ -9,12 +9,14 @@ import { ChartColumnStacked } from 'lucide-react';
 import { Users } from 'lucide-react';
 import { KeySquare } from 'lucide-react';
 import { ShoppingCart } from 'lucide-react';
+import { Database } from 'lucide-react';
 
 export const PRIVATE_NAV_LINKS = [
-    {label:"Dashboard", path:"/admin/dashboard", icon:LayoutDashboard},
-    {label:"Productos", path:"/admin/productos", icon:Box},
-    {label:"Categorias", path:"/admin/categorias", icon:ChartColumnStacked},
-    {label:"Usuarios", path:"/admin/usuarios", icon:Users},
-    {label:"Roles", path:"/admin/roles", icon:KeySquare},
-    {label:"Ordenes", path:"/admin/ordenes", icon:ShoppingCart},
+    {label:"Dashboard", path:"/admin/dashboard", icon:LayoutDashboard, roles:["Admin"]},
+    {label:"Productos", path:"/admin/productos", icon:Box, roles:["Admin", "Employee"]},
+    {label:"Categorias", path:"/admin/categorias", icon:ChartColumnStacked, roles:["Admin", "Employee"]},
+    {label:"Usuarios", path:"/admin/usuarios", icon:Users, roles:["Admin"]},
+    {label:"Roles", path:"/admin/roles", icon:KeySquare, roles:["Admin"]},
+    {label:"Ordenes", path:"/admin/ordenes", icon:ShoppingCart, roles:["Admin"]},
+    {label:"Eventos Outbox", path:"/admin/outbox", icon:Database, roles:["Admin"]},
 ]

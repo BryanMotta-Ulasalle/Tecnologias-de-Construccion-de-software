@@ -1,41 +1,46 @@
-import {useState, useEffect} from "react"
-import { fetchProducts} from "../api/productsApi"
-
+import { useEffect, useState } from "react";
+import { getApiErrorMessage } from "../../../api/errors";
+import { fetchProducts } from "../api/productsApi";
 
 const useProducts = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
-    const [products, setProducts] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
+  useEffect(() => {
+    let isMounted = true;
 
-    useEffect(()=>{
+    const loadProducts = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const productData = await fetchProducts();
+        if (isMounted) setProducts(productData);
+      } catch (requestError) {
+        if (isMounted) {
+          setError(
+            getApiErrorMessage(
+              requestError,
+              "No se pudieron cargar los productos.",
+            ),
+          );
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
 
-        let isMounted = true
+    loadProducts();
 
-        const loadProducts = async () =>{
-            try {
-                setIsLoading(true)
-                setError(null)
+    return () => {
+      isMounted = false;
+    };
+  }, [reloadKey]);
 
-                const data = await fetchProducts()
+  const refetch = () => setReloadKey((current) => current + 1);
 
-                if (isMounted) setProducts(data)
-            } catch (error) {
-                if (isMounted) setError(error.message)
-            } finally {
-                if (isMounted) setIsLoading(false)
-            }
-        };
+  return { data: products, products, isLoading, error, refetch };
+};
 
-        loadProducts();
-
-        return ()=> {isMounted = false}
-
-    },[])
-
-  return {
-    products, isLoading, error
-  }
-}
-
-export default useProducts
+export default useProducts;

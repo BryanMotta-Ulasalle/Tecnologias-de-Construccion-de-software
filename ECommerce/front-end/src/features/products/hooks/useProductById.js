@@ -1,42 +1,55 @@
-import {useState, useEffect} from "react"
-import {  fetchProductById } from "../api/productsApi"
-
+import { useEffect, useState } from "react";
+import { getApiErrorMessage } from "../../../api/errors";
+import { fetchProductById } from "../api/productsApi";
 
 const useProductById = (id) => {
+  const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(Boolean(id));
+  const [error, setError] = useState(null);
 
-    const [product, setProduct] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
+  useEffect(() => {
+    if (!id) {
+      return undefined;
+    }
 
-    useEffect(()=>{
-        console.log("ID recibido:", id);
-        if (!id) return;
-        let isMounted = true
+    let isMounted = true;
 
-        const loadProduct = async () =>{
-            try {
-                setIsLoading(true)
-                setError(null)
+    const loadProduct = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const productData = await fetchProductById(id);
+        if (isMounted) setProduct(productData);
+      } catch (requestError) {
+        if (isMounted) {
+          setError(
+            getApiErrorMessage(
+              requestError,
+              "No se pudo cargar el producto.",
+            ),
+          );
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
 
-                const data = await fetchProductById(id)
+    loadProduct();
 
-                if (isMounted) setProduct(data)
-            } catch (error) {
-                if (isMounted) setError(error.message)
-            } finally {
-                if (isMounted) setIsLoading(false)
-            }
-        };
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
 
-        loadProduct();
-
-        return ()=> {isMounted = false}
-
-    },[id])
+  const currentProduct = id ? product : null;
+  const currentError = id ? error : "No se proporciono un producto valido.";
 
   return {
-    product, isLoading, error
-  }
-}
+    data: currentProduct,
+    product: currentProduct,
+    isLoading: id ? isLoading : false,
+    error: currentError,
+  };
+};
 
-export default useProductById
+export default useProductById;

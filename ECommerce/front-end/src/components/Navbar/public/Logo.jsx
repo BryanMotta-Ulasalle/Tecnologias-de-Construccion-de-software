@@ -1,13 +1,28 @@
-import Button from "../../Button"
+import { Link } from "react-router-dom";
 
-const Logo = ({isHome}) => {
+const Logo = ({ isHome }) => {
   return (
-    <Button className="lg:flex flex-row gap-3 justify-center items-center ">
-        <div className={`w-10 h-10 rounded-lg font-black text-2xl ${isHome? "bg-orange-300 " : "bg-black text-white"}`}> S
-        </div>
-        <h1 className="hidden lg:inline-block text-white">Nombre</h1>
-    </Button>
-  )
-}
+    <Link
+      to="/"
+      className="flex items-center justify-center gap-3 rounded-lg"
+      aria-label="Ir al inicio"
+    >
+      <span
+        className={`flex h-10 w-10 items-center justify-center rounded-lg text-2xl font-black ${
+          isHome ? "bg-orange-300 text-stone-900" : "bg-black text-white"
+        }`}
+      >
+        S
+      </span>
+      <span
+        className={`hidden font-semibold lg:inline-block ${
+          isHome ? "text-white" : "text-stone-900"
+        }`}
+      >
+        Store
+      </span>
+    </Link>
+  );
+};
 
-export default Logo
+export default Logo;

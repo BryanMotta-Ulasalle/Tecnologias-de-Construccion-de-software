@@ -1,9 +1,9 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
-from apps.users.permissions import IsAdminOrEmployee, IsOwnerOrAdmin, IsCustomer
+from apps.users.permissions import IsAdminOrEmployee
 from django.db.models import Count
 
 
@@ -12,7 +12,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
         total_products=Count('products')
         ).order_by('id')
     serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        return [IsAdminOrEmployee()]
 
 
 class ProductViewSet(viewsets.ModelViewSet):

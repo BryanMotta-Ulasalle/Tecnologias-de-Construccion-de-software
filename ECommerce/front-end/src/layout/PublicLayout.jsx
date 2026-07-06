@@ -5,7 +5,7 @@ const PublicLayout = () => {
   return (
     <>
         <HeaderPublic/>
-        <main className="pt-15 h-dvh bg-bgLight">
+        <main className="min-h-dvh bg-bgLight pt-15">
             <div className="w-full lg:max-w-360  mx-auto">
               <Outlet/>
             </div>

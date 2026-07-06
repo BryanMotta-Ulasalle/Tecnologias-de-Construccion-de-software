@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const AccountList = ({ name, email, role, handleLogout, isAdmin }) => {
     return (
-        <div className='absolute top-15 right-68 w-60 flex flex-col gap-5 bg-white rounded-2xl shadow-2xl p-5'>
+        <div className='absolute right-0 top-12 w-60 flex flex-col gap-5 bg-white rounded-2xl shadow-2xl p-5 text-stone-900'>
             <div className='flex flex-col'>
                 <H5>{name}</H5>
                 <P>{email}</P>
@@ -16,7 +16,7 @@ const AccountList = ({ name, email, role, handleLogout, isAdmin }) => {
                         <Link to="/admin/dashboard">Dashboard</Link>
                     )
                 }
-                <Link>Mis Ordenes</Link>
+                <Link to="/cuenta/ordenes">Mis Ordenes</Link>
                 <Link to="/cuenta">Perfil</Link>
             </div>
             <div>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.products',
     'apps.orders',
+    'apps.outbox',
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular'

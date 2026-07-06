@@ -1,6 +1,6 @@
 import HeaderPublic from "../../../components/Navbar/public/HeaderPublic"
 import Hero from "../components/Hero"
-import Categogy from "../components/Categogy"
+import CategorySection from "../components/CategorySection"
 
 const HomePage = () => {
   return (
@@ -9,7 +9,7 @@ const HomePage = () => {
         <Hero/>
         <div className="bg-bgLight w-full">
           <div className="w-full lg:max-w-360 mx-auto">
-            <Categogy/>
+            <CategorySection/>
           </div>
         </div>
     </div>

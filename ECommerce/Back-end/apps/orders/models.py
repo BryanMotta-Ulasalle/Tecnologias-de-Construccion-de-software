@@ -8,7 +8,7 @@ class Order(models.Model):
     shipping_address = models.CharField(max_length=255)
 
     def __str__(self):
-        return f'Order #{self.id} by {self.user.username}'
+        return f'Order #{self.id} by {self.user.email}'
     
     class Meta:
         db_table = 'orders'
@@ -44,7 +44,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Cart for {self.user.username}'
+        return f'Cart for {self.user.email}'
     
     class Meta:
         db_table = 'carts'
@@ -55,7 +55,7 @@ class CartItem(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return f'{self.quantity} x {self.product.name} in Cart for {self.cart.user.username}'
+        return f'{self.quantity} x {self.product.name} in Cart for {self.cart.user.email}'
     
     class Meta:
         db_table = 'cart_items'

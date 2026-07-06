@@ -7,13 +7,13 @@ from .serializers import RegisterSerializer, UserSerializer, RoleSerializer, MeU
 from .models import User, Role
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from .permissions import  IsOwnerOrAdmin
+from .permissions import IsAdmin
 
     
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all().order_by('id')
     serializer_class = RoleSerializer
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsAdmin]
     
 class UserViewSet(mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
@@ -21,7 +21,7 @@ class UserViewSet(mixins.ListModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet):
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+    permission_classes = [IsAdmin]
 
     def get_queryset(self):
         qs = User.objects.select_related('role').order_by('id')

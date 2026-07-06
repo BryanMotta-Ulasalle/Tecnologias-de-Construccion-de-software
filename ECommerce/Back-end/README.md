@@ -79,7 +79,8 @@ Con este paso se crean las tablas del sistema.
 
 ## 5. Roles creados automaticamente
 
-El sistema ahora asegura automaticamente los roles base del proyecto:
+Después de ejecutar las migraciones, el sistema asegura automáticamente los
+roles base del proyecto mediante la señal `post_migrate`:
 
 - `Admin` con `id = 1`
 - `Employee` con `id = 2`
@@ -88,7 +89,7 @@ El sistema ahora asegura automaticamente los roles base del proyecto:
 Esto permite probar autenticacion y registro con una base de datos vacia.
 
 Nota importante:
-- en una base completamente nueva, estos roles se crean solos
+- en una base completamente nueva, estos roles se crean al ejecutar `migrate`
 - si ya existian roles con otros IDs, puede requerirse limpieza manual para forzar exactamente `1`, `2` y `3`
 
 ## 6. Ejecutar el servidor
@@ -131,7 +132,8 @@ Con una base vacia, el orden recomendado es:
 }
 ```
 
-Si no envias `role_id`, el backend intentara asignar `Customer` por defecto.
+El registro público no acepta `role_id`: todos los usuarios registrados por
+este endpoint se crean con el rol `Customer`.
 
 ## Ejemplo de login
 

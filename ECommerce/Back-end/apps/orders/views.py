@@ -4,6 +4,8 @@ from django.db import transaction
 from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
+from apps.outbox.models import OutboxEvent
+from apps.products.models import Product
 from .models import Order, OrderItem, Cart, CartItem
 from .serializers import OrderSerializer, OrderItemSerializer, CartSerializer, CartItemSerializer
 
@@ -11,7 +13,39 @@ from .serializers import OrderSerializer, OrderItemSerializer, CartSerializer, C
 def _is_admin_user(user):
     return bool(getattr(user, 'is_authenticated', False) and getattr(getattr(user, 'role', None), 'name', None) == 'Admin')
 
-class OrderViewSet(viewsets.ModelViewSet):
+
+def _build_order_created_payload(order, cart_items, products):
+    items = []
+
+    for cart_item in cart_items:
+        product = products[cart_item.product_id]
+        subtotal = Decimal(cart_item.quantity) * product.price
+        items.append({
+            'product_id': product.id,
+            'product_name': product.name,
+            'quantity': cart_item.quantity,
+            'unit_price': str(product.price),
+            'subtotal': str(subtotal),
+        })
+
+    return {
+        'order_id': order.id,
+        'user_id': order.user_id,
+        'user_email': order.user.email,
+        'total_price': str(order.total_price),
+        'shipping_address': order.shipping_address,
+        'status': order.status,
+        'created_at': order.created_at.isoformat(),
+        'items': items,
+    }
+
+
+class OrderViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet,
+):
     permission_classes = [IsAuthenticated]
     queryset = Order.objects.select_related('user').prefetch_related('items').order_by('id')
     serializer_class = OrderSerializer
@@ -24,33 +58,87 @@ class OrderViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         user = self.request.user
-        cart = getattr(user, 'cart', None)
-        if cart is None or not cart.items.exists():
-            raise ValidationError('Cart is empty or does not exist')
-
-        # calculate total from cart items
-        total = Decimal('0.00')
-        for ci in cart.items.select_related('product').all():
-            total += Decimal(ci.quantity) * (ci.product.price or Decimal('0.00'))
 
         with transaction.atomic():
+            cart = Cart.objects.select_for_update().filter(user=user).first()
+            if cart is None:
+                raise ValidationError('Cart is empty or does not exist')
+
+            cart_items = list(cart.items.all())
+            if not cart_items:
+                raise ValidationError('Cart is empty or does not exist')
+
+            requested_quantities = {}
+            for cart_item in cart_items:
+                requested_quantities[cart_item.product_id] = (
+                    requested_quantities.get(cart_item.product_id, 0)
+                    + cart_item.quantity
+                )
+
+            products = {
+                product.id: product
+                for product in Product.objects.select_for_update().filter(
+                    id__in=requested_quantities
+                )
+            }
+
+            stock_errors = []
+            for product_id, requested_quantity in requested_quantities.items():
+                product = products.get(product_id)
+                if product is None:
+                    stock_errors.append(
+                        f'El producto {product_id} ya no esta disponible.'
+                    )
+                elif product.stock < requested_quantity:
+                    stock_errors.append(
+                        f'Stock insuficiente para {product.name}: '
+                        f'disponible {product.stock}, solicitado {requested_quantity}.'
+                    )
+
+            if stock_errors:
+                raise ValidationError({'stock': stock_errors})
+
+            total = sum(
+                (
+                    Decimal(cart_item.quantity)
+                    * (products[cart_item.product_id].price or Decimal('0.00'))
+                    for cart_item in cart_items
+                ),
+                Decimal('0.00'),
+            )
+
             order = serializer.save(user=user, total_price=total)
 
-            # create OrderItem entries copying current product prices
-            order_items = []
-            for ci in cart.items.select_related('product').all():
-                order_items.append(OrderItem(
+            order_items = [
+                OrderItem(
                     order=order,
-                    product=ci.product,
-                    quantity=ci.quantity,
-                    unit_price=ci.product.price
-                ))
+                    product=products[cart_item.product_id],
+                    quantity=cart_item.quantity,
+                    unit_price=products[cart_item.product_id].price,
+                )
+                for cart_item in cart_items
+            ]
             OrderItem.objects.bulk_create(order_items)
 
-            # clear the cart
+            for product_id, requested_quantity in requested_quantities.items():
+                products[product_id].stock -= requested_quantity
+            Product.objects.bulk_update(products.values(), ['stock'])
+
             cart.items.all().delete()
+
+            OutboxEvent.objects.create(
+                event_type='ORDER_CREATED',
+                aggregate_type='Order',
+                aggregate_id=str(order.id),
+                payload=_build_order_created_payload(
+                    order,
+                    cart_items,
+                    products,
+                ),
+                status=OutboxEvent.Status.PENDING,
+            )
     
-class OrderItemViewSet(viewsets.ModelViewSet):
+class OrderItemViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = OrderItem.objects.select_related('order', 'product').order_by('id')
     serializer_class = OrderItemSerializer

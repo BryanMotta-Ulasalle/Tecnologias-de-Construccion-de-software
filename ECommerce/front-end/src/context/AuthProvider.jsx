@@ -1,89 +1,134 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+  clearTokens,
+  saveTokens,
+  setSessionChangeHandler,
+} from "../api/client";
 import { AuthContext } from "./AuthContext";
-import { login as loginRequest, getMe } from "../features/Autentication/api/AuthApi";
+import {
+  getCurrentUser,
+  login as loginRequest,
+} from "../features/Autentication/api/AuthApi";
 
 const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [accessToken, setAccessToken] = useState(() =>
+    localStorage.getItem("access"),
+  );
+  const [refreshToken, setRefreshToken] = useState(() =>
+    localStorage.getItem("refresh"),
+  );
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+  const isAuthenticated = Boolean(user);
+  const isAdmin = user?.role?.name === "Admin";
+  const isEmployee = user?.role?.name === "Employee";
+  const isCustomer = user?.role?.name === "Customer";
 
-    const isAuthenticated = !!user
-    const isAdmin = user?.role?.name === "Admin"
-    const isEmployee = user?.role?.name === "Employee"
-    const isCustomer = user?.role?.name === "Customer"
+  const clearSession = () => {
+    clearTokens();
+    setAccessToken(null);
+    setRefreshToken(null);
+    setUser(null);
+  };
 
-    const login = async (credentials) => {
-        setIsLoading(true)
+  const login = async (credentials) => {
+    setIsLoading(true);
 
-        try {
-            const token = await loginRequest(credentials)
+    try {
+      const tokens = await loginRequest(credentials);
+      saveTokens(tokens);
+      setAccessToken(tokens.access);
+      setRefreshToken(tokens.refresh);
 
-            localStorage.setItem("access", token.access)
-            localStorage.setItem("refresh", token.refresh)
-
-            const me = await getMe()
-            setUser(me)
-
-            return me
-        } catch (error) {
-            localStorage.removeItem("access");
-            localStorage.removeItem("refresh");
-            setUser(null);
-            throw error
-        } finally {
-            setIsLoading(false);
-        }
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
+      return currentUser;
+    } catch (error) {
+      clearSession();
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    const logout = () => {
-        localStorage.removeItem("access");
-        localStorage.removeItem("refresh");
+  const logout = () => {
+    clearSession();
+  };
+
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
+
+  useEffect(() => {
+    const unsubscribe = setSessionChangeHandler((event) => {
+      if (event.type === "expired") {
+        setAccessToken(null);
+        setRefreshToken(null);
         setUser(null);
-    }
+        return;
+      }
 
-    useEffect(() => {
-        const restoreSession = async () => {
-            const token = localStorage.getItem("access")
+      if (event.type === "refreshed") {
+        setAccessToken(event.access);
+        setRefreshToken(event.refresh);
+      }
+    });
 
-            if (!token) {
-                setUser(null)
-                setIsLoading(false)
-                return;
-            }
+    return unsubscribe;
+  }, []);
 
-            try {
-                const me = await getMe()
-                setUser(me)
-            } catch (error) {
-                localStorage.removeItem("access");
-                localStorage.removeItem("refresh");
-                setUser(null);
-                throw error
-            } finally {
-                setIsLoading(false);
-            }
+  useEffect(() => {
+    let isActive = true;
+
+    const restoreSession = async () => {
+      const storedAccess = localStorage.getItem("access");
+      const storedRefresh = localStorage.getItem("refresh");
+
+      if (!storedAccess && !storedRefresh) {
+        if (isActive) setIsLoading(false);
+        return;
+      }
+
+      try {
+        const currentUser = await getCurrentUser();
+        if (isActive) setUser(currentUser);
+      } catch {
+        clearTokens();
+        if (isActive) {
+          setAccessToken(null);
+          setRefreshToken(null);
+          setUser(null);
         }
+      } finally {
+        if (isActive) setIsLoading(false);
+      }
+    };
 
-        restoreSession()
+    restoreSession();
 
-    }, [])
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
-    const value = {
-        user,
-        setUser,
-        isLoading,
-        setIsLoading,
-        isAuthenticated,
-        isAdmin,
-        isCustomer,
-        isEmployee,
-        login,
-        logout
-    }
+  const value = {
+    user,
+    setUser,
+    updateUser,
+    accessToken,
+    refreshToken,
+    isLoading,
+    setIsLoading,
+    isAuthenticated,
+    isAdmin,
+    isCustomer,
+    isEmployee,
+    login,
+    logout,
+  };
 
-    return <AuthContext.Provider value={value}>
-        {children}
-    </AuthContext.Provider>
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
-export default AuthProvider
+export default AuthProvider;
