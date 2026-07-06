@@ -147,14 +147,11 @@ python manage.py makemigrations --check --dry-run
 python manage.py test
 ```
 
-## Pendientes
+## Comandos de utilidad
 
-- Endpoint explícito para transiciones de estado de órdenes.
-- Datos enriquecidos y fecha en el serializer de órdenes.
-- Gestión API de imágenes de productos.
-- Cancelación de órdenes con reposición de stock.
-- Pagos.
-- Tests automatizados del frontend.
+```powershell
+python manage.py shell -c "from apps.outbox.models import OutboxEvent; OutboxEvent.objects.create(event_type='UNKNOWN_EVENT', aggregate_type='Demo', aggregate_id='1', payload={})"
 
-Consulta [REPORTE_FINAL_ECOMMERCE.md](REPORTE_FINAL_ECOMMERCE.md) para el
-diagnóstico final.
+python manage.py process_outbox
+```
+
